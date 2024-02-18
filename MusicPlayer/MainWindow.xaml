@@ -4,20 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MusicPlayer"
+    xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" 
-        MinHeight="500" MinWidth="700"
-        Height="50" Width="900" 
+        Height="560" Width="980" 
         Background="Transparent"
         WindowStyle="None"
         AllowsTransparency="True" 
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
     <Grid>
-        <Border CornerRadius="20" Background="#FF1C1E1F">
-        </Border>
+        <Border CornerRadius="20" Background="#FF1C1E1F"/>
         <Grid HorizontalAlignment="Center" Height="56" Margin="0,10,0,0" VerticalAlignment="Top" Width="892">
-            <Button Click="CrossButtonClick" Margin="815,2,0,0" Background="Transparent" BorderThickness="0">
+            <Button Click="CrossButtonClick" Margin="842,2,-27,0" Background="Transparent" BorderThickness="0">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Image x:Name="buttonImage" Source="Icons/delete-button.png" Width="50" Height="50"/>
@@ -35,8 +34,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-
-            <Button Click="CrossButtonClick" Margin="738,2,78,0" Background="Transparent" BorderThickness="0">
+            <Button Click="CrossButtonClick" Margin="765,2,51,0" Background="Transparent" BorderThickness="0">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Image x:Name="buttonImage" Source="Icons/minimize.png" Width="50" Height="50"/>
@@ -54,13 +52,12 @@
                     </Style>
                 </Button.Style>
             </Button>
-
-            <Label Margin="0,-10,678,10" Content="Music Player" Foreground="White" FontSize="36"/>
+            <Label Margin="-38,-10,716,10" Content="Music Player" Foreground="White" FontSize="36"/>
             <Grid Margin="0,0,149,0" MouseLeftButtonDown="OnMouseLeftButtonDown">
-                <Label/>
+                <Label Margin="-39,0,-27,0"/>
             </Grid>
         </Grid>
-        <Border BorderBrush="Aqua" BorderThickness="2" Margin="0,72,676,0" CornerRadius="10">
+        <Border BorderBrush="Aqua" BorderThickness="2" Margin="0,72,748,0" CornerRadius="10">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -157,16 +154,61 @@
                         </Style>
                     </Button.Style>
                 </Button>
+                <Button Content="Open Youtube" Margin="3,170,3,205" FontSize="30" Click="Button_Click_5">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#FF2196F3" Offset="0"/>
+                                        <GradientStop Color="#FF1976D2" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <!-- Hover Trigger -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#FF64B5F6" Offset="0"/>
+                                                <GradientStop Color="#FF1565C0" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <!-- Click Trigger -->
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#FF0D47A1" Offset="0"/>
+                                                <GradientStop Color="#FF1565C0" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </Grid>
         </Border>
-        <Grid Margin="232,422,0,0">
+        <Grid Margin="260,483,0,0">
             <ProgressBar x:Name="progressBar"
              Value="{Binding ElementName=slider, Path=Value}"
              Maximum="{Binding ElementName=slider, Path=Maximum}" Margin="0,0,15,60" Background="#FF1B66A4" BorderBrush="Cyan" />
             <Slider x:Name="slider"
         ValueChanged="Slider_ValueChanged" Margin="0,0,12,62" />
             <MediaElement x:Name="mediaElement" />
-            <Button Content="Play" Margin="18,22,547,18" FontSize="20" Click="PlayButton">
+            <Button Content="Play" Margin="18,30,581,10" FontSize="20" Click="PlayButton">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -211,7 +253,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Pause" Margin="150,22,414,18" FontSize="20" Click="Button_Click">
+            <Button Content="Pause" Margin="150,30,442,10" FontSize="20" Click="Button_Click">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -256,7 +298,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Resume" Margin="421,23,145,17" FontSize="20" Click="Button_Click_1">
+            <Button Content="Resume" Margin="426,30,170,12" FontSize="20" Click="Button_Click_1">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -301,7 +343,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Stop" Margin="554,22,12,18" FontSize="20" Click="Button_Click_2">
+            <Button Content="Stop" Margin="564,30,26,12" FontSize="20" Click="Button_Click_2">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -346,7 +388,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Fav" Margin="290,22,274,18" FontSize="20" Click="FavSong">
+            <Button Content="Fav" Margin="290,30,309,11" FontSize="20" Click="FavSong">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -392,8 +434,11 @@
                 </Button.Style>
             </Button>
         </Grid>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="240,81,16,96" Background="Black" CornerRadius="20">
+        <Border BorderBrush="Black" BorderThickness="1" Margin="255,82,16,96" Background="Black" CornerRadius="20">
             <Canvas x:Name="visualizerCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </Border>
+        <Border Name="ytMusicGrid" Margin="242,76,0,0" Visibility="Hidden">
+            <wv2:WebView2 Name="webView"/>
         </Border>
     </Grid>
 </Window>

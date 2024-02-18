@@ -8,6 +8,7 @@ using ShapesPath = System.Windows.Shapes.Path;
 using System.Drawing.Imaging;
 using System.Windows.Documents;
 using System.Text.Json;
+using Microsoft.Web.WebView2.Core;
 
 
 
@@ -22,17 +23,31 @@ namespace MusicPlayer
         private bool isPlaying = false;
         private string songPlayingPath;
         public Dictionary<string, string> FavJsonData = new Dictionary<string, string>();
+        private bool ytMusicOpened = false;
 
 
         public MainWindow()
         {
             InitializeComponent();
+            LoadAppStartup();
+        }
+
+        private void LoadAppStartup()
+        {
             mediaElement.LoadedBehavior = MediaState.Manual;
             mediaElement.MediaOpened += MediaElement_MediaOpened;
             this.mediaElement.MediaEnded += MediaElement_MediaEnded;
-
-            // Initialize the timer
             this.timer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), DispatcherPriority.Input, Timer_Tick, this.Dispatcher);
+        }
+
+        private async void InitializeWebView()
+        {
+            await webView.EnsureCoreWebView2Async(null);
+        }
+
+        private void LoadWebPage(string url)
+        {
+            webView.Source = new Uri(url);
         }
 
         private void AddDataToJsonFile(string filePath, Dictionary<string, string> newData)
@@ -243,6 +258,30 @@ namespace MusicPlayer
         {
             FavDialog favDialog = new FavDialog();
             favDialog.ShowDialog();
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!ytMusicOpened)
+                {
+                    InitializeWebView();
+                    LoadWebPage("https://music.youtube.com/");
+                    ytMusicGrid.Visibility = Visibility.Visible;
+                    ytMusicOpened = true;
+                }
+                else
+                {
+                    InitializeWebView();
+                    webView.Source = new Uri("about:blank");
+                    ytMusicGrid.Visibility = Visibility.Hidden;
+                    ytMusicOpened = false;
+                }
+            }catch (Exception ew)
+            {
+                throw ew;
+            }
         }
     }
 }
