@@ -34,7 +34,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Click="CrossButtonClick" Margin="765,2,51,0" Background="Transparent" BorderThickness="0">
+            <Button Click="MinimizeButtonClick" Margin="765,2,51,0" Background="Transparent" BorderThickness="0">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Image x:Name="buttonImage" Source="Icons/minimize.png" Width="50" Height="50"/>
@@ -64,7 +64,7 @@
                     <RowDefinition Height="Auto"/>
                     <!-- Add more RowDefinitions if needed -->
                 </Grid.RowDefinitions>
-                <Button Content="Playlist" Margin="3,21,3,354" FontSize="36" Click="Button_Click_3">
+                <Button Content="Playlist" Margin="3,21,3,354" FontSize="36" Click="PlaylistButtonClick">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -109,7 +109,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Content="Favourite" Margin="3,96,3,279" FontSize="36" Click="Button_Click_4">
+                <Button Content="Favourite" Margin="3,96,3,279" FontSize="36" Click="FavouriteButtonClick">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -154,7 +154,52 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Content="Open Youtube" Margin="3,170,3,205" FontSize="30" Click="Button_Click_5">
+                <Button Content="Open Youtube" Margin="3,170,3,205" FontSize="30" Click="YoutubeMusicButtonClick">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#FF2196F3" Offset="0"/>
+                                        <GradientStop Color="#FF1976D2" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <!-- Hover Trigger -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#FF64B5F6" Offset="0"/>
+                                                <GradientStop Color="#FF1565C0" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <!-- Click Trigger -->
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#FF0D47A1" Offset="0"/>
+                                                <GradientStop Color="#FF1565C0" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="Settings" Margin="3,422,3,-47" FontSize="30" Click="SettingButtonClick" Grid.RowSpan="2">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -253,7 +298,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Pause" Margin="150,30,442,10" FontSize="20" Click="Button_Click">
+            <Button Content="Pause" Margin="150,30,442,10" FontSize="20" Click="PauseButtonClick">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -298,7 +343,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Resume" Margin="426,30,170,12" FontSize="20" Click="Button_Click_1">
+            <Button Content="Resume" Margin="426,30,170,12" FontSize="20" Click="ResumeSongButtonClick">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -343,7 +388,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Stop" Margin="564,30,26,12" FontSize="20" Click="Button_Click_2">
+            <Button Content="Stop" Margin="564,30,26,12" FontSize="20" Click="StopSongButtonClick">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -388,7 +433,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Fav" Margin="290,30,309,11" FontSize="20" Click="FavSong">
+            <Button Content="Fav" Margin="290,30,309,11" FontSize="20" Click="FavouriteSongButtonClick">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">

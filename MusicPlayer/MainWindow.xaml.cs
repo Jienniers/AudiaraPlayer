@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using System.Windows.Documents;
 using System.Text.Json;
 using Microsoft.Web.WebView2.Core;
+using MusicPlayer.Dialogs;
 
 
 
@@ -200,12 +201,12 @@ namespace MusicPlayer
             this.timer.Tick -= Timer_Tick;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void PauseButtonClick(object sender, RoutedEventArgs e)
         {
             mediaElement.Pause();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ResumeSongButtonClick(object sender, RoutedEventArgs e)
         {
             if (isPlaying)
             {
@@ -222,20 +223,20 @@ namespace MusicPlayer
             }
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void StopSongButtonClick(object sender, RoutedEventArgs e)
         {
             mediaElement.Stop();
             this.slider.Value = 0;
             this.progressBar.Value = 0;
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void PlaylistButtonClick(object sender, RoutedEventArgs e)
         {
             Playlist pla = new Playlist(this);
             pla.ShowDialog();
         }
 
-        private void FavSong(object sender, RoutedEventArgs e)
+        private void FavouriteSongButtonClick(object sender, RoutedEventArgs e)
         {
             if (songPlayingPath is null)
             {
@@ -254,13 +255,13 @@ namespace MusicPlayer
             MessageBox.Show($"Data has been added to {filePath}");
         }
 
-        private async void Button_Click_4(object sender, RoutedEventArgs e)
+        private async void FavouriteButtonClick(object sender, RoutedEventArgs e)
         {
             FavDialog favDialog = new FavDialog();
             favDialog.ShowDialog();
         }
 
-        private void Button_Click_5(object sender, RoutedEventArgs e)
+        private void YoutubeMusicButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -282,6 +283,12 @@ namespace MusicPlayer
             {
                 throw ew;
             }
+        }
+
+        private void SettingButtonClick(object sender, RoutedEventArgs e)
+        {
+            Settings setting = new Settings();
+            setting.ShowDialog();
         }
     }
 }
