@@ -229,10 +229,29 @@ namespace MusicPlayer
         {
             if (Application.Current.MainWindow is MainWindow mainWindow)
             {
-                mainWindow.FavPlaySong(FavSongsList[GetSelectedDescription()]);
+                if (!File.Exists(FavSongsList[GetSelectedDescription()]))
+                {
+                    MessageBox.Show("Music File wasnt found, Removing it.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    RemoveKeyAndUpdateFile(jsonPath, GetKeyFromJsonValue(jsonPath, FavSongsList[GetSelectedDescription()]));
+                    SongsFavs.Items.Clear();
+                    CountnumFav = 0;
+                    foreach (string items in FavSongsList.Keys)
+                    {
+                        CountnumFav++;
+                        AddItemToListBox(CountnumFav.ToString(), items);
+                    }
+                    return;
+                }
+                if (GetSelectedDescription() != string.Empty)
+                {
+                    mainWindow.FavPlaySong(FavSongsList[GetSelectedDescription()]);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("No music was selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-
-            Close();
         }
     }
 }

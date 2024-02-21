@@ -9,6 +9,8 @@
         Background="#FF1C1E1F"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
+    
+    
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Width="148">
             <Grid HorizontalAlignment="Left" Width="144">
@@ -50,10 +52,11 @@
                 <GroupBox Header="AddFolders" Margin="5,0,0,0" Foreground="White" Height="130" VerticalAlignment="Top">
                     <StackPanel Orientation="Horizontal" Margin="10">
                         <Label Content="Update Folder when song changes: " VerticalAlignment="Center" Foreground="White" />
-                        <ComboBox x:Name="AddFolderComboBox" Margin="5" VerticalAlignment="Center">
+                        <ComboBox x:Name="AddFolderComboBox" Margin="5" VerticalAlignment="Center" SelectionChanged="AddFolderComboBoxSelectionChanged">
                             <ComboBoxItem Content="True" />
                             <ComboBoxItem Content="False" />
                         </ComboBox>
+                        
                     </StackPanel>
                 </GroupBox>
             </Grid>

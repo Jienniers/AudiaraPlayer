@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Text.Json;
 using Microsoft.Web.WebView2.Core;
 using MusicPlayer.Dialogs;
+using Microsoft.Web.WebView2.Wpf;
 
 
 
@@ -41,56 +42,42 @@ namespace MusicPlayer
             this.timer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), DispatcherPriority.Input, Timer_Tick, this.Dispatcher);
         }
 
-        private async void InitializeWebView()
+        class CallFunctions (WebView2 webView)
         {
-            await webView.EnsureCoreWebView2Async(null);
-        }
 
-        private void LoadWebPage(string url)
-        {
-            webView.Source = new Uri(url);
-        }
-
-        private void AddDataToJsonFile(string filePath, Dictionary<string, string> newData)
-        {
-            // Get the directory path from the file path
-            string directoryPath = Path.GetDirectoryName(filePath);
-
-            // Create the directory if it doesn't exist
-            if (!Directory.Exists(directoryPath))
+            public async void InitializeWebView()
             {
-                Directory.CreateDirectory(directoryPath);
+                await webView.EnsureCoreWebView2Async(null);
             }
 
-            // Initialize existing data or an empty dictionary
-            Dictionary<string, string> existingData = new Dictionary<string, string>();
-
-            // Check if the file exists
-            if (File.Exists(filePath))
+            public void LoadWebPage(string url)
             {
-                // Read existing JSON data from the file
-                string existingJson = File.ReadAllText(filePath);
-
-                // Deserialize the JSON string into a dictionary
-                existingData = JsonSerializer.Deserialize<Dictionary<string, string>>(existingJson);
+                webView.Source = new Uri(url);
             }
 
-            // Merge existing data with new data
-            foreach (var entry in newData)
+            public void AddDataToJsonFile(string filePath, Dictionary<string, string> newData)
             {
-                // Check if the key already exists in the existing data
-                if (!existingData.ContainsKey(entry.Key))
+                string directoryPath = Path.GetDirectoryName(filePath);
+                if (!Directory.Exists(directoryPath))
                 {
-                    // Add the new key-value pair to the existing data
-                    existingData.Add(entry.Key, entry.Value);
+                    Directory.CreateDirectory(directoryPath);
                 }
+                Dictionary<string, string> existingData = new Dictionary<string, string>();
+                if (File.Exists(filePath))
+                {
+                    string existingJson = File.ReadAllText(filePath);
+                    existingData = JsonSerializer.Deserialize<Dictionary<string, string>>(existingJson);
+                }
+                foreach (var entry in newData)
+                {
+                    if (!existingData.ContainsKey(entry.Key))
+                    {
+                        existingData.Add(entry.Key, entry.Value);
+                    }
+                }
+                string jsonString = JsonSerializer.Serialize(existingData, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(filePath, jsonString);
             }
-
-            // Convert the merged dictionary to a JSON string
-            string jsonString = JsonSerializer.Serialize(existingData, new JsonSerializerOptions { WriteIndented = true });
-
-            // Write the JSON string back to the file, creating it if it doesn't exist
-            File.WriteAllText(filePath, jsonString);
         }
 
         private void PlayNextSong()
@@ -219,6 +206,10 @@ namespace MusicPlayer
                     mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
                     mediaElement.Play();
                     playlistIndex++;
+                    if (playlistIndex >= playlist_songs.Count)
+                    {
+                        playlistIndex = 0;
+                    }
                 }
             }
         }
@@ -250,7 +241,8 @@ namespace MusicPlayer
         };
 
             // Call the function to add data to the JSON file
-            AddDataToJsonFile(filePath, FavJsonData);
+            CallFunctions callFunctions = new CallFunctions(webView);
+            callFunctions.AddDataToJsonFile(filePath, FavJsonData);
 
             MessageBox.Show($"Data has been added to {filePath}");
         }
@@ -263,18 +255,19 @@ namespace MusicPlayer
 
         private void YoutubeMusicButtonClick(object sender, RoutedEventArgs e)
         {
+            CallFunctions callFunctions = new CallFunctions(webView);
             try
             {
                 if (!ytMusicOpened)
                 {
-                    InitializeWebView();
-                    LoadWebPage("https://music.youtube.com/");
+                    callFunctions.InitializeWebView();
+                    callFunctions.LoadWebPage("https://music.youtube.com/");
                     ytMusicGrid.Visibility = Visibility.Visible;
                     ytMusicOpened = true;
                 }
                 else
                 {
-                    InitializeWebView();
+                    callFunctions.InitializeWebView();
                     webView.Source = new Uri("about:blank");
                     ytMusicGrid.Visibility = Visibility.Hidden;
                     ytMusicOpened = false;
