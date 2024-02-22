@@ -44,18 +44,29 @@ namespace MusicPlayer.Dialogs
                 public void AddFolderUpdateValueJson(Settings settings)
                 {
                     Functions functions = new Functions();
-                    string value = functions.GetValueFromJsonKey(settings.settingsJsonFilePath, "AddFolderUpdate");
-                    switch (value)
+                    string updateFolderKey = "AddFolderUpdate";
+                    if (File.Exists(settings.settingsJsonFilePath))
                     {
-                        case "true":
-                            settings.AddFolderComboBox.SelectedIndex = 0;
-                            break;
-                        case "false":
-                            settings.AddFolderComboBox.SelectedIndex = 1;
-                            break;
-                        case null:
-                            settings.AddFolderComboBox.SelectedIndex = 1;
-                            break;
+                        string value = functions.GetValueFromJsonKey(settings.settingsJsonFilePath, "AddFolderUpdate");
+                        switch (value)
+                        {
+                            case "true":
+                                settings.AddFolderComboBox.SelectedIndex = 0;
+                                break;
+                            case "false":
+                                settings.AddFolderComboBox.SelectedIndex = 1;
+                                break;
+                            case null:
+                                settings.AddFolderComboBox.SelectedIndex = 1;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Dictionary<string, string> UpdateFolderSettingData = new Dictionary<string, string>();
+                        UpdateFolderSettingData.Add(updateFolderKey, "true");
+                        functions.AddDataToJsonFile(settings.settingsJsonFilePath, UpdateFolderSettingData);
+                        settings.AddFolderComboBox.SelectedIndex = 0;
                     }
                 }
             }

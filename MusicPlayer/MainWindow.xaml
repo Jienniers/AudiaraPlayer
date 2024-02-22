@@ -7,16 +7,20 @@
     xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" 
-        Height="560" Width="980" 
-        Background="Transparent"
-        WindowStyle="None"
-        AllowsTransparency="True" 
+        Height="578" Width="952" 
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        MinHeight="610" MinWidth="900"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None">
     <Grid>
         <Border CornerRadius="20" Background="#FF1C1E1F"/>
-        <Grid HorizontalAlignment="Center" Height="56" Margin="0,10,0,0" VerticalAlignment="Top" Width="892">
-            <Button Click="CrossButtonClick" Margin="842,2,-27,0" Background="Transparent" BorderThickness="0">
+        <Grid Height="56" Margin="3,10,3,0" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="13*"/>
+            </Grid.RowDefinitions>
+            <Button Click="CrossButtonClick" Margin="0,2,-2,0" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="54" VerticalAlignment="Top" HorizontalAlignment="Right" Width="77">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Image x:Name="buttonImage" Source="Icons/delete-button.png" Width="50" Height="50"/>
@@ -34,7 +38,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Click="MinimizeButtonClick" Margin="765,2,51,0" Background="Transparent" BorderThickness="0">
+            <Button Click="MinimizeButtonClick" Margin="0,0,135,2" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="52" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Image x:Name="buttonImage" Source="Icons/minimize.png" Width="50" Height="50"/>
@@ -52,12 +56,30 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Label Margin="-38,-10,716,10" Content="Music Player" Foreground="White" FontSize="36"/>
-            <Grid Margin="0,0,149,0" MouseLeftButtonDown="OnMouseLeftButtonDown">
-                <Label Margin="-39,0,-27,0"/>
+            <Label Margin="6,-10,0,10" Content="Music Player" Foreground="White" FontSize="36" Grid.RowSpan="2" HorizontalAlignment="Left" Width="302"/>
+            <Grid Margin="0,0,209,0" MouseLeftButtonDown="OnMouseLeftButtonDown" Grid.RowSpan="2">
+                <Label Margin="4,-2,0,2" HorizontalAlignment="Left" Width="720"/>
             </Grid>
+            <Button Click="MaximizeButtonClick" Margin="0,0,63,2" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="52" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Image x:Name="buttonImage" Source="/Icons/maximize.png" Width="50" Height="50"/>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Cursor" Value="Arrow"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Opacity" Value="0.8"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
-        <Border BorderBrush="Aqua" BorderThickness="2" Margin="0,72,748,0" CornerRadius="10">
+        <Border BorderBrush="Aqua" BorderThickness="2" Margin="0,72,0,0" CornerRadius="10" HorizontalAlignment="Left" Width="232">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -199,7 +221,8 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Content="Settings" Margin="3,422,3,-47" FontSize="30" Click="SettingButtonClick" Grid.RowSpan="2">
+                <!--hidden because no use needed right now-->
+                <Button Content="Settings" Margin="3,0,3,0" FontSize="30" Click="SettingButtonClick" Grid.Row="1" Height="40" VerticalAlignment="Bottom" Visibility="Hidden">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -249,11 +272,11 @@
         <Grid Margin="260,483,0,0">
             <ProgressBar x:Name="progressBar"
              Value="{Binding ElementName=slider, Path=Value}"
-             Maximum="{Binding ElementName=slider, Path=Maximum}" Margin="0,0,15,60" Background="#FF1B66A4" BorderBrush="Cyan" />
+             Maximum="{Binding ElementName=slider, Path=Maximum}" Margin="0,0,15,60" Background="#FF1B66A4" BorderBrush="Cyan" Height="19" VerticalAlignment="Bottom" />
             <Slider x:Name="slider"
-        ValueChanged="Slider_ValueChanged" Margin="0,0,12,62" />
+        ValueChanged="Slider_ValueChanged" Margin="0,0,12,62" Height="17" VerticalAlignment="Bottom" />
             <MediaElement x:Name="mediaElement" />
-            <Button Content="Play" Margin="18,30,581,10" FontSize="20" Click="PlayButton">
+            <Button Content="Play" Margin="2,0,0,8" FontSize="20" Click="PlayButton" HorizontalAlignment="Left" Width="96" Height="42" VerticalAlignment="Bottom">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -298,7 +321,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Pause" Margin="150,30,442,10" FontSize="20" Click="PauseButtonClick">
+            <Button Content="Pause" Margin="141,0,0,8" FontSize="20" Click="PauseButtonClick" HorizontalAlignment="Left" Width="105" Height="42" VerticalAlignment="Bottom">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -343,7 +366,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Resume" Margin="426,30,170,12" FontSize="20" Click="ResumeSongButtonClick">
+            <Button Content="Resume" Margin="292,0,300,10" FontSize="20" Click="ResumeSongButtonClick" Height="40" VerticalAlignment="Bottom">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -388,7 +411,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Stop" Margin="564,30,26,12" FontSize="20" Click="StopSongButtonClick">
+            <Button Content="Stop" Margin="0,0,6,10" FontSize="20" Click="StopSongButtonClick" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="108">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -433,7 +456,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="Fav" Margin="290,30,309,11" FontSize="20" Click="FavouriteSongButtonClick">
+            <Button Content="Fav" Margin="0,0,160,9" FontSize="20" Click="FavouriteSongButtonClick" Height="41" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="96">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">

@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="Icons\delete-button.png" />
+    <None Remove="Icons\maximize.png" />
     <None Remove="Icons\minimize.png" />
     <None Remove="Icons\playlist.png" />
   </ItemGroup>
@@ -23,6 +24,7 @@
 
   <ItemGroup>
     <Resource Include="Icons\delete-button.png" />
+    <Resource Include="Icons\maximize.png" />
     <Resource Include="Icons\minimize.png" />
     <Resource Include="Icons\playlist.png" />
   </ItemGroup>

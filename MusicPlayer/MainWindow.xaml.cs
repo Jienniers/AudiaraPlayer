@@ -11,6 +11,7 @@ using System.Text.Json;
 using Microsoft.Web.WebView2.Core;
 using MusicPlayer.Dialogs;
 using Microsoft.Web.WebView2.Wpf;
+using System.Diagnostics;
 
 
 
@@ -26,6 +27,7 @@ namespace MusicPlayer
         private string songPlayingPath;
         public Dictionary<string, string> FavJsonData = new Dictionary<string, string>();
         private bool ytMusicOpened = false;
+        private bool maximized = false;
 
 
         public MainWindow()
@@ -244,7 +246,7 @@ namespace MusicPlayer
             CallFunctions callFunctions = new CallFunctions(webView);
             callFunctions.AddDataToJsonFile(filePath, FavJsonData);
 
-            MessageBox.Show($"Data has been added to {filePath}");
+            MessageBox.Show($"{Path.GetFileName(songPlayingPath)} has been added to favourites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private async void FavouriteButtonClick(object sender, RoutedEventArgs e)
@@ -282,6 +284,43 @@ namespace MusicPlayer
         {
             Settings setting = new Settings();
             setting.ShowDialog();
+        }
+
+        private void MaximizeButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!maximized)
+            {
+                MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+                MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
+                WindowState = WindowState.Maximized;
+                maximized = true;
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+                maximized = false;
+            }
+        }
+
+        protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+
+            if (e.Property == Window.WindowStateProperty)
+            {
+                if (!maximized)
+                {
+                    MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+                    MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
+                    WindowState = WindowState.Maximized;
+                    maximized = true;
+                }
+                else
+                {
+                    WindowState = WindowState.Normal;
+                    maximized = false;
+                }
+            }
         }
     }
 }
