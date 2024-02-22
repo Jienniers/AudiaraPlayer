@@ -44,20 +44,20 @@ namespace MusicPlayer
             this.timer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), DispatcherPriority.Input, Timer_Tick, this.Dispatcher);
         }
 
-        class CallFunctions (WebView2 webView)
+        class CallFunctions(WebView2 webView)
         {
 
-            public async void InitializeWebView()
+            internal async void InitializeWebView()
             {
                 await webView.EnsureCoreWebView2Async(null);
             }
 
-            public void LoadWebPage(string url)
+            internal void LoadWebPage(string url)
             {
                 webView.Source = new Uri(url);
             }
 
-            public void AddDataToJsonFile(string filePath, Dictionary<string, string> newData)
+            internal void AddDataToJsonFile(string filePath, Dictionary<string, string> newData)
             {
                 string directoryPath = Path.GetDirectoryName(filePath);
                 if (!Directory.Exists(directoryPath))
@@ -80,6 +80,11 @@ namespace MusicPlayer
                 string jsonString = JsonSerializer.Serialize(existingData, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(filePath, jsonString);
             }
+
+            internal void updateFileDetail(TextBlock Mp3FileDetail, string FilePath)
+            {
+                Mp3FileDetail.Text = "File: " + Path.GetFileName(FilePath);
+            }
         }
 
         private void PlayNextSong()
@@ -88,10 +93,15 @@ namespace MusicPlayer
             {
                 mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
                 mediaElement.Play();
+                CallFunctions callfunctions = new CallFunctions(webView);
+                string fileNameToGet = playlist_songs[playlistIndex];
+                callfunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
+                isPlaying = true;
                 playlistIndex++;
             }
             else
             {
+                isPlaying = false;
                 mediaElement.Stop();
             }
         }
@@ -137,6 +147,8 @@ namespace MusicPlayer
                 songPlayingPath = dialog.FileName;
                 mediaElement.Source = new Uri(songPlayingPath, UriKind.RelativeOrAbsolute);
                 mediaElement.Play();
+                CallFunctions callfunctions = new CallFunctions(webView);
+                callfunctions.updateFileDetail(Mp3FileDetail, songPlayingPath);
             }
             this.slider.Value = 0;
             this.progressBar.Value = 0;
@@ -159,6 +171,7 @@ namespace MusicPlayer
             this.slider.Value = 0;
             this.progressBar.Value = 0;
             if (isPlaying) isPlaying = false;
+            Mp3FileDetail.Text = "";
             PlayNextSong();
         }
 
@@ -266,6 +279,7 @@ namespace MusicPlayer
                     callFunctions.LoadWebPage("https://music.youtube.com/");
                     ytMusicGrid.Visibility = Visibility.Visible;
                     ytMusicOpened = true;
+                    YoutubeMusicbtn.Content = "Close YT Music";
                 }
                 else
                 {
@@ -273,6 +287,7 @@ namespace MusicPlayer
                     webView.Source = new Uri("about:blank");
                     ytMusicGrid.Visibility = Visibility.Hidden;
                     ytMusicOpened = false;
+                    YoutubeMusicbtn.Content = "Open YT Music";
                 }
             }catch (Exception ew)
             {

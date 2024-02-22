@@ -58,7 +58,9 @@
             </Button>
             <Label Margin="6,-10,0,10" Content="Music Player" Foreground="White" FontSize="36" Grid.RowSpan="2" HorizontalAlignment="Left" Width="302"/>
             <Grid Margin="0,0,209,0" MouseLeftButtonDown="OnMouseLeftButtonDown" Grid.RowSpan="2">
-                <Label Margin="4,-2,0,2" HorizontalAlignment="Left" Width="720"/>
+                <Label Margin="4,-2,0,2" HorizontalAlignment="Left" Width="720">
+                    <Label Content="Label"/>
+                </Label>
             </Grid>
             <Button Click="MaximizeButtonClick" Margin="0,0,63,2" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="52" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89">
                 <Button.Template>
@@ -131,7 +133,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Content="Favourite" Margin="3,96,3,279" FontSize="36" Click="FavouriteButtonClick">
+                <Button Content="Favourites" Margin="3,96,3,279" FontSize="36" Click="FavouriteButtonClick">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -176,7 +178,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Content="Open Youtube" Margin="3,170,3,205" FontSize="30" Click="YoutubeMusicButtonClick">
+                <Button x:Name="YoutubeMusicbtn" Content="Open YT Music" Margin="3,170,3,205" FontSize="30" Click="YoutubeMusicButtonClick">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -503,7 +505,9 @@
             </Button>
         </Grid>
         <Border BorderBrush="Black" BorderThickness="1" Margin="255,82,16,96" Background="Black" CornerRadius="20">
-            <Canvas x:Name="visualizerCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Label FontSize="18" Foreground="White" Margin="11,12,0,0">
+                <TextBlock x:Name="Mp3FileDetail" Text="" TextWrapping="Wrap"/>
+            </Label>
         </Border>
         <Border Name="ytMusicGrid" Margin="242,76,0,0" Visibility="Hidden">
             <wv2:WebView2 Name="webView"/>

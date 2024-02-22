@@ -7,13 +7,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	  <UseWPF>true</UseWPF>
 	  <PlatformTarget>x64</PlatformTarget>
+	  <ApplicationIcon>Icons\Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Icons\delete-button.png" />
+    <None Remove="Icons\Icon.png" />
     <None Remove="Icons\maximize.png" />
     <None Remove="Icons\minimize.png" />
     <None Remove="Icons\playlist.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\Icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +30,7 @@
 
   <ItemGroup>
     <Resource Include="Icons\delete-button.png" />
+    <Resource Include="Icons\Icon.png" />
     <Resource Include="Icons\maximize.png" />
     <Resource Include="Icons\minimize.png" />
     <Resource Include="Icons\playlist.png" />
