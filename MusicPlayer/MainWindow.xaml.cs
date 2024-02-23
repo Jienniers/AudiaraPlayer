@@ -44,15 +44,15 @@ namespace MusicPlayer
             this.timer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), DispatcherPriority.Input, Timer_Tick, this.Dispatcher);
         }
 
-        class CallFunctions(WebView2 webView)
+        class CallFunctions()
         {
 
-            internal async void InitializeWebView()
+            internal async void InitializeWebView(WebView2 webView)
             {
                 await webView.EnsureCoreWebView2Async(null);
             }
 
-            internal void LoadWebPage(string url)
+            internal void LoadWebPage(string url, WebView2 webView)
             {
                 webView.Source = new Uri(url);
             }
@@ -85,6 +85,16 @@ namespace MusicPlayer
             {
                 Mp3FileDetail.Text = "File: " + Path.GetFileName(FilePath);
             }
+
+            internal void displayDuration(double currentPosition, Label startDuration)
+            {
+                int totalSeconds = (int)currentPosition;
+                int hours = totalSeconds / 3600;
+                int minutes = (totalSeconds % 3600) / 60;
+                int seconds = totalSeconds % 60;
+
+                startDuration.Content = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+            }
         }
 
         private void PlayNextSong()
@@ -93,7 +103,7 @@ namespace MusicPlayer
             {
                 mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
                 mediaElement.Play();
-                CallFunctions callfunctions = new CallFunctions(webView);
+                CallFunctions callfunctions = new CallFunctions();
                 string fileNameToGet = playlist_songs[playlistIndex];
                 callfunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
                 isPlaying = true;
@@ -147,7 +157,7 @@ namespace MusicPlayer
                 songPlayingPath = dialog.FileName;
                 mediaElement.Source = new Uri(songPlayingPath, UriKind.RelativeOrAbsolute);
                 mediaElement.Play();
-                CallFunctions callfunctions = new CallFunctions(webView);
+                CallFunctions callfunctions = new CallFunctions();
                 callfunctions.updateFileDetail(Mp3FileDetail, songPlayingPath);
                 this.slider.Value = 0;
                 this.progressBar.Value = 0;
@@ -172,15 +182,24 @@ namespace MusicPlayer
             this.progressBar.Value = 0;
             if (isPlaying) isPlaying = false;
             Mp3FileDetail.Text = "";
+            startDuration.Content = "00:00:00";
             PlayNextSong();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            double currentPosition = this.mediaElement.Position.TotalSeconds;
             if (!this.isDraggingSlider)
             {
-                double currentPosition = this.mediaElement.Position.TotalSeconds;
                 this.slider.Value = currentPosition;
+            }
+
+            if (isPlaying)
+            {
+                CallFunctions callfunctions = new CallFunctions();
+                callfunctions.displayDuration(currentPosition, startDuration);
+                totalDuration.Content = mediaElement.NaturalDuration.ToString();
+
             }
         }
 
@@ -220,7 +239,7 @@ namespace MusicPlayer
                 {
                     mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
                     mediaElement.Play();
-                    CallFunctions callfunctions = new CallFunctions(webView);
+                    CallFunctions callfunctions = new CallFunctions();
                     string fileNameToGet = playlist_songs[playlistIndex];
                     callfunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
                     playlistIndex++;
@@ -259,7 +278,7 @@ namespace MusicPlayer
         };
 
             // Call the function to add data to the JSON file
-            CallFunctions callFunctions = new CallFunctions(webView);
+            CallFunctions callFunctions = new CallFunctions();
             callFunctions.AddDataToJsonFile(filePath, FavJsonData);
 
             MessageBox.Show($"{Path.GetFileName(songPlayingPath)} has been added to favourites.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -273,21 +292,21 @@ namespace MusicPlayer
 
         private void YoutubeMusicButtonClick(object sender, RoutedEventArgs e)
         {
-            CallFunctions callFunctions = new CallFunctions(webView);
+            CallFunctions callFunctions = new CallFunctions();
             mediaElement.Stop();
             try
             {
                 if (!ytMusicOpened)
                 {
-                    callFunctions.InitializeWebView();
-                    callFunctions.LoadWebPage("https://music.youtube.com/");
+                    callFunctions.InitializeWebView(webView);
+                    callFunctions.LoadWebPage("https://music.youtube.com/", webView);
                     ytMusicGrid.Visibility = Visibility.Visible;
                     ytMusicOpened = true;
                     YoutubeMusicbtn.Content = "Close YT Music";
                 }
                 else
                 {
-                    callFunctions.InitializeWebView();
+                    callFunctions.InitializeWebView(webView);
                     webView.Source = new Uri("about:blank");
                     ytMusicGrid.Visibility = Visibility.Hidden;
                     ytMusicOpened = false;
@@ -324,8 +343,7 @@ namespace MusicPlayer
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
-
-            if (e.Property == Window.WindowStateProperty)
+            if (e.Property == Window.WindowStateProperty && (WindowState)e.NewValue != WindowState.Minimized && (WindowState)e.NewValue != WindowState.Normal)
             {
                 if (!maximized)
                 {
@@ -376,7 +394,7 @@ namespace MusicPlayer
             {
                 mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
                 mediaElement.Play();
-                CallFunctions callfunctions = new CallFunctions(webView);
+                CallFunctions callfunctions = new CallFunctions();
                 string fileNameToGet = playlist_songs[playlistIndex];
                 callfunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
                 if (!File.Exists(playlist_songs[playlistIndex])) MessageBox.Show("File not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
