@@ -12,6 +12,7 @@ using Microsoft.Web.WebView2.Core;
 using MusicPlayer.Dialogs;
 using Microsoft.Web.WebView2.Wpf;
 using System.Diagnostics;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 
 
@@ -48,6 +49,7 @@ namespace MusicPlayer
                 string filePath = args[1];
                 mediaElement.Source = new Uri(filePath, UriKind.RelativeOrAbsolute);
                 mediaElement.Play();
+                songPlayingPath = filePath;
                 CallFunctions.updateFileDetail(Mp3FileDetail,filePath);
                 slider.Value = 0;
                 progressBar.Value = 0;
@@ -158,6 +160,7 @@ namespace MusicPlayer
                 mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
                 mediaElement.Play();
                 string fileNameToGet = playlist_songs[playlistIndex];
+                songPlayingPath = fileNameToGet;
                 CallFunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
                 isPlaying = true;
                 playlistIndex++;
@@ -173,6 +176,7 @@ namespace MusicPlayer
         {
             mediaElement.Source = new Uri(filepath, UriKind.RelativeOrAbsolute);
             mediaElement.Play();
+            songPlayingPath = filepath;
             this.slider.Value = 0;
             this.progressBar.Value = 0;
             isPlaying = true;
@@ -292,6 +296,7 @@ namespace MusicPlayer
                 {
                     mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
                     mediaElement.Play();
+                    songPlayingPath = playlist_songs[playlistIndex];
                     string fileNameToGet = playlist_songs[playlistIndex];
                     CallFunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
                     playlistIndex++;
@@ -448,6 +453,7 @@ namespace MusicPlayer
                 mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
                 mediaElement.Play();
                 string fileNameToGet = playlist_songs[playlistIndex];
+                songPlayingPath = fileNameToGet;
                 CallFunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
                 if (!File.Exists(playlist_songs[playlistIndex])) MessageBox.Show("File not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }

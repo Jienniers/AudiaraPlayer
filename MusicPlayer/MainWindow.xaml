@@ -83,11 +83,17 @@
         </Grid>
         <Border BorderBrush="Aqua" BorderThickness="2" Margin="0,72,0,0" CornerRadius="10" HorizontalAlignment="Left" Width="232">
             <Grid>
-                <Button Content="Playlist" Margin="3,25,3,0" FontSize="25" Click="PlaylistButtonClick" Height="36" VerticalAlignment="Top">
+                <Button Margin="3,25,3,0" FontSize="25" Click="PlaylistButtonClick" Height="36" VerticalAlignment="Top">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <!-- Icon (You can replace this with your own icon or image) -->
+                                    <Image Source="/Icons/SideBar/playlist.png" Width="24" Height="24" Margin="5"/>
+
+                                    <!-- Text Content -->
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+                                </StackPanel>
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
@@ -127,12 +133,19 @@
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
+                    <Grid>
+                        <TextBlock Text="Playlist" VerticalAlignment="Bottom" Margin="34,0,-34,-2"/>
+                    </Grid>
                 </Button>
-                <Button Content="Favourites" Margin="3,103,3,0" FontSize="25" Click="FavouriteButtonClick" Height="38" VerticalAlignment="Top">
+
+                <Button Margin="3,103,3,0" FontSize="25" Click="FavouriteButtonClick" Height="38" VerticalAlignment="Top">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Icons/SideBar/favourite.png" Width="24" Height="24" Margin="5"/>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
@@ -172,12 +185,19 @@
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
+                    <Grid>
+                        <TextBlock Text="Favourites" VerticalAlignment="Bottom" Margin="34,0,-34,-2"/>
+                    </Grid>
                 </Button>
-                <Button x:Name="YoutubeMusicbtn" Content="Open YT Music" Margin="3,181,3,0" FontSize="25" Click="YoutubeMusicButtonClick" Height="36" VerticalAlignment="Top">
+
+                <Button x:Name="YoutubeMusicbtn" Margin="3,181,3,0" FontSize="25" Click="YoutubeMusicButtonClick" Height="36" VerticalAlignment="Top">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Icons/SideBar/youtubeMusic.png" Width="24" Height="24" Margin="5"/>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
@@ -217,13 +237,19 @@
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
+                    <Grid>
+                        <TextBlock Text="Open YT Music" VerticalAlignment="Center" Margin="12,0,-12,0"/>
+                    </Grid>
                 </Button>
-                <!--hidden because no use needed right now-->
-                <Button Content="Settings" Margin="3,0,3,12" FontSize="30" Click="SettingButtonClick" Height="40" VerticalAlignment="Bottom">
+
+                <Button Margin="3,0,3,12" FontSize="30" Click="SettingButtonClick" Height="40" VerticalAlignment="Bottom">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="/Icons/SideBar/settings.png" Width="46" Height="34"/>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
@@ -263,6 +289,9 @@
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
+                    <Grid>
+                        <TextBlock Text="Settings" VerticalAlignment="Center" Margin="20,0,-20,0"/>
+                    </Grid>
                 </Button>
             </Grid>
         </Border>
@@ -322,7 +351,7 @@
                 <!-- Icon and Text Content -->
                 <Grid>
                     <Image Source="/Icons/Control Buttons/Play.png" Height="16" Margin="-16,7,32,4"/>
-                    <TextBlock Text="Play" VerticalAlignment="Center" Margin="11,0,-11,0"/>
+                    <TextBlock Text="Play" VerticalAlignment="Bottom" Margin="11,0,-11,0"/>
                 </Grid>
             </Button>
             <Button Margin="141,0,0,8" FontSize="20" Click="PauseButtonClick" HorizontalAlignment="Left" Width="105" Height="42" VerticalAlignment="Bottom">

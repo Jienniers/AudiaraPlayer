@@ -23,6 +23,10 @@
     <None Remove="Icons\next-song.png" />
     <None Remove="Icons\playlist.png" />
     <None Remove="Icons\previous-song.png" />
+    <None Remove="Icons\SideBar\favourite.png" />
+    <None Remove="Icons\SideBar\playlist.png" />
+    <None Remove="Icons\SideBar\settings.png" />
+    <None Remove="Icons\SideBar\YoutubeMusic.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +52,10 @@
     <Resource Include="Icons\Control Buttons\next-song.png" />
     <Resource Include="Icons\playlist.png" />
     <Resource Include="Icons\Control Buttons\previous-song.png" />
+    <Resource Include="Icons\SideBar\favourite.png" />
+    <Resource Include="Icons\SideBar\playlist.png" />
+    <Resource Include="Icons\SideBar\settings.png" />
+    <Resource Include="Icons\SideBar\YoutubeMusic.png" />
   </ItemGroup>
 
 </Project>
