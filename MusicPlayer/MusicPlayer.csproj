@@ -16,6 +16,7 @@
     <None Remove="Icons\Control Buttons\Play.png" />
     <None Remove="Icons\Control Buttons\stop-button.png" />
     <None Remove="Icons\delete-button.png" />
+    <None Remove="Icons\home.png" />
     <None Remove="Icons\Icon.png" />
     <None Remove="Icons\maximize.png" />
     <None Remove="Icons\minimize.png" />
@@ -40,12 +41,13 @@
     <Resource Include="Icons\Control Buttons\Play.png" />
     <Resource Include="Icons\Control Buttons\stop-button.png" />
     <Resource Include="Icons\delete-button.png" />
+    <Resource Include="Icons\home.png" />
     <Resource Include="Icons\Icon.png" />
     <Resource Include="Icons\maximize.png" />
     <Resource Include="Icons\minimize.png" />
-    <Resource Include="Icons\next-song.png" />
+    <Resource Include="Icons\Control Buttons\next-song.png" />
     <Resource Include="Icons\playlist.png" />
-    <Resource Include="Icons\previous-song.png" />
+    <Resource Include="Icons\Control Buttons\previous-song.png" />
   </ItemGroup>
 
 </Project>

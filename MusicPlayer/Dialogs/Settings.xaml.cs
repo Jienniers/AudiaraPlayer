@@ -24,7 +24,7 @@ namespace MusicPlayer.Dialogs
     public partial class Settings : Window
     {
         private string settingsJsonFilePath = "Data/Settings.json";
-        
+        private string showTimeKeyJson = "ShowTime";
 
         public Settings()
         {
@@ -41,32 +41,32 @@ namespace MusicPlayer.Dialogs
         {
             public class starupFunctions
             {
+               
                 public void AddFolderUpdateValueJson(Settings settings)
                 {
                     Functions functions = new Functions();
-                    string updateFolderKey = "AddFolderUpdate";
                     if (File.Exists(settings.settingsJsonFilePath))
                     {
-                        string value = functions.GetValueFromJsonKey(settings.settingsJsonFilePath, "AddFolderUpdate");
+                        string value = functions.GetValueFromJsonKey(settings.settingsJsonFilePath, settings.showTimeKeyJson);
                         switch (value)
                         {
                             case "true":
-                                settings.AddFolderComboBox.SelectedIndex = 0;
+                                settings.ShowTimeComboBox.SelectedIndex = 0;
                                 break;
                             case "false":
-                                settings.AddFolderComboBox.SelectedIndex = 1;
+                                settings.ShowTimeComboBox.SelectedIndex = 1;
                                 break;
                             case null:
-                                settings.AddFolderComboBox.SelectedIndex = 1;
+                                settings.ShowTimeComboBox.SelectedIndex = 1;
                                 break;
                         }
                     }
                     else
                     {
                         Dictionary<string, string> UpdateFolderSettingData = new Dictionary<string, string>();
-                        UpdateFolderSettingData.Add(updateFolderKey, "true");
+                        UpdateFolderSettingData.Add(settings.showTimeKeyJson, "true");
                         functions.AddDataToJsonFile(settings.settingsJsonFilePath, UpdateFolderSettingData);
-                        settings.AddFolderComboBox.SelectedIndex = 0;
+                        settings.ShowTimeComboBox.SelectedIndex = 0;
                     }
                 }
             }
@@ -117,17 +117,16 @@ namespace MusicPlayer.Dialogs
         private void AddFolderComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Functions functions = new Functions();
-            int selectedIndex = AddFolderComboBox.SelectedIndex;
-            string updateFolderKey = "AddFolderUpdate";
+            int selectedIndex = ShowTimeComboBox.SelectedIndex;
             Dictionary<string, string> UpdateFolderSettingData = new Dictionary<string, string>();
             if (selectedIndex == 0)
             {
-                UpdateFolderSettingData.Add(updateFolderKey, "true");
+                UpdateFolderSettingData.Add(showTimeKeyJson, "true");
                 functions.AddDataToJsonFile(settingsJsonFilePath, UpdateFolderSettingData);
             }
             else if (selectedIndex == 1)
             {
-                UpdateFolderSettingData.Add(updateFolderKey, "false");
+                UpdateFolderSettingData.Add(showTimeKeyJson, "false");
                 functions.AddDataToJsonFile(settingsJsonFilePath, UpdateFolderSettingData);
             }
         }

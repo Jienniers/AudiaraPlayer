@@ -14,9 +14,9 @@
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Width="148">
             <Grid HorizontalAlignment="Left" Width="144">
-                <Button VerticalAlignment="Top" Margin="0,24,0,0" Height="29" Foreground="White" HorizontalAlignment="Center" Width="144" FontSize="16">
+                <Button VerticalAlignment="Top" Margin="0,24,0,0" Height="29" Foreground="White" HorizontalAlignment="Center" Width="144" FontSize="16" Content="Home">
                     <Button.Template>
-                        <ControlTemplate TargetType="Button">
+                        <ControlTemplate TargetType="{x:Type Button}">
                             <Grid>
                                 <!-- Background rectangle with adjustable opacity -->
                                 <Rectangle x:Name="BackgroundRect" Fill="#FFFFFF" Opacity="0.1" RadiusX="0" RadiusY="0"/>
@@ -25,8 +25,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <!-- Icon on the left -->
-                                    <Image Source="/Icons/playlist.png" Width="24" Height="24" Margin="5,0,5,0"/>
+                                    <Image Source="/Icons/home.png" Width="24" Height="24" Margin="9,2,1,3"/>
                                     <!-- Content (text) of the button -->
                                     <ContentPresenter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>
@@ -43,16 +42,15 @@
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
-                    Playlist
                 </Button>
             </Grid>
         </Border>
         <Border BorderBrush="Gray" BorderThickness="1" Margin="147,0,0,0">
             <Grid Margin="1,0,0,0">
-                <GroupBox Header="AddFolders" Margin="5,0,0,0" Foreground="White" Height="130" VerticalAlignment="Top">
+                <GroupBox Header="Time" Margin="5,0,0,0" Foreground="White" Height="130" VerticalAlignment="Top">
                     <StackPanel Orientation="Horizontal" Margin="10">
-                        <Label Content="Update Folder when song changes: " VerticalAlignment="Center" Foreground="White" />
-                        <ComboBox x:Name="AddFolderComboBox" Margin="5" VerticalAlignment="Center" SelectionChanged="AddFolderComboBoxSelectionChanged">
+                        <Label Content="Show Time: " VerticalAlignment="Center" Foreground="White" />
+                        <ComboBox x:Name="ShowTimeComboBox" Margin="5" VerticalAlignment="Center" SelectionChanged="AddFolderComboBoxSelectionChanged">
                             <ComboBoxItem Content="True" />
                             <ComboBoxItem Content="False" />
                         </ComboBox>

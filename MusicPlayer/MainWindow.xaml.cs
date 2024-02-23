@@ -21,19 +21,38 @@ namespace MusicPlayer
     {
         private bool isDraggingSlider = false;
         private DispatcherTimer timer;
+        private DispatcherTimer timeTimer;
         public List<String> playlist_songs = new List<String>();
         private int playlistIndex = 0;
-        private bool isPlaying = false;
+        internal bool isPlaying = false;
         private string songPlayingPath;
         public Dictionary<string, string> FavJsonData = new Dictionary<string, string>();
         private bool ytMusicOpened = false;
         private bool maximized = false;
+        private string settingsJson = "Data/settings.json";
 
 
         public MainWindow()
         {
             InitializeComponent();
             LoadAppStartup();
+            HandleStartup();
+        }
+
+        private void HandleStartup()
+        {
+            string[] args = Environment.GetCommandLineArgs();
+
+            if (args.Length > 1)
+            {
+                string filePath = args[1];
+                mediaElement.Source = new Uri(filePath, UriKind.RelativeOrAbsolute);
+                mediaElement.Play();
+                CallFunctions.updateFileDetail(Mp3FileDetail,filePath);
+                slider.Value = 0;
+                progressBar.Value = 0;
+                isPlaying = true;
+            }
         }
 
         private void LoadAppStartup()
@@ -42,9 +61,10 @@ namespace MusicPlayer
             mediaElement.MediaOpened += MediaElement_MediaOpened;
             this.mediaElement.MediaEnded += MediaElement_MediaEnded;
             this.timer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), DispatcherPriority.Input, Timer_Tick, this.Dispatcher);
+            this.timeTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), DispatcherPriority.Input, Time_Timer_Tick, this.Dispatcher);
         }
 
-        class CallFunctions()
+        internal class CallFunctions()
         {
 
             internal async void InitializeWebView(WebView2 webView)
@@ -81,12 +101,12 @@ namespace MusicPlayer
                 File.WriteAllText(filePath, jsonString);
             }
 
-            internal void updateFileDetail(TextBlock Mp3FileDetail, string FilePath)
+            internal static void updateFileDetail(TextBlock Mp3FileDetail, string FilePath)
             {
                 Mp3FileDetail.Text = "File: " + Path.GetFileName(FilePath);
             }
 
-            internal void displayDuration(double currentPosition, Label startDuration)
+            internal static void displayDuration(double currentPosition, Label startDuration)
             {
                 int totalSeconds = (int)currentPosition;
                 int hours = totalSeconds / 3600;
@@ -94,6 +114,40 @@ namespace MusicPlayer
                 int seconds = totalSeconds % 60;
 
                 startDuration.Content = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+            }
+
+            internal static string getValueFromJson(string targetKey, string jsonPath)
+            {
+
+                if (File.Exists(jsonPath))
+                {
+                    try
+                    {
+                        string jsonString = File.ReadAllText(jsonPath);
+                        using (JsonDocument document = JsonDocument.Parse(jsonString))
+                        {
+                            if (document.RootElement.TryGetProperty(targetKey, out JsonElement value))
+                            {
+                                //Console.WriteLine($"Value for key '{targetKey}': {value}");
+                                return value.ToString();
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Key '{targetKey}' not found in the JSON file.");
+                            }
+                        }
+                    }
+                    catch (JsonException ex)
+                    {
+                        Console.WriteLine($"Error parsing JSON: {ex.Message}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("JSON file not found.");
+                }
+
+                return string.Empty;
             }
         }
 
@@ -103,9 +157,8 @@ namespace MusicPlayer
             {
                 mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
                 mediaElement.Play();
-                CallFunctions callfunctions = new CallFunctions();
                 string fileNameToGet = playlist_songs[playlistIndex];
-                callfunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
+                CallFunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
                 isPlaying = true;
                 playlistIndex++;
             }
@@ -157,8 +210,7 @@ namespace MusicPlayer
                 songPlayingPath = dialog.FileName;
                 mediaElement.Source = new Uri(songPlayingPath, UriKind.RelativeOrAbsolute);
                 mediaElement.Play();
-                CallFunctions callfunctions = new CallFunctions();
-                callfunctions.updateFileDetail(Mp3FileDetail, songPlayingPath);
+                CallFunctions.updateFileDetail(Mp3FileDetail, songPlayingPath);
                 this.slider.Value = 0;
                 this.progressBar.Value = 0;
                 isPlaying = true;
@@ -186,21 +238,22 @@ namespace MusicPlayer
             PlayNextSong();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private async void Timer_Tick(object sender, EventArgs e)
         {
             double currentPosition = this.mediaElement.Position.TotalSeconds;
-            if (!this.isDraggingSlider)
+            Dispatcher.Invoke(() =>
             {
-                this.slider.Value = currentPosition;
-            }
+                if (!this.isDraggingSlider)
+                {
+                    this.slider.Value = currentPosition;
+                }
 
-            if (isPlaying)
-            {
-                CallFunctions callfunctions = new CallFunctions();
-                callfunctions.displayDuration(currentPosition, startDuration);
-                totalDuration.Content = mediaElement.NaturalDuration.ToString();
-
-            }
+                if (isPlaying)
+                {
+                    CallFunctions.displayDuration(currentPosition, startDuration);
+                    totalDuration.Content = mediaElement.NaturalDuration.ToString();
+                }
+            });
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -239,9 +292,8 @@ namespace MusicPlayer
                 {
                     mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
                     mediaElement.Play();
-                    CallFunctions callfunctions = new CallFunctions();
                     string fileNameToGet = playlist_songs[playlistIndex];
-                    callfunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
+                    CallFunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
                     playlistIndex++;
                     if (playlistIndex >= playlist_songs.Count)
                     {
@@ -312,7 +364,8 @@ namespace MusicPlayer
                     ytMusicOpened = false;
                     YoutubeMusicbtn.Content = "Open YT Music";
                 }
-            }catch (Exception ew)
+            }
+            catch (Exception ew)
             {
                 throw ew;
             }
@@ -394,10 +447,24 @@ namespace MusicPlayer
             {
                 mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
                 mediaElement.Play();
-                CallFunctions callfunctions = new CallFunctions();
                 string fileNameToGet = playlist_songs[playlistIndex];
-                callfunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
+                CallFunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
                 if (!File.Exists(playlist_songs[playlistIndex])) MessageBox.Show("File not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Time_Timer_Tick(object sender, EventArgs e)
+        {
+            if (CallFunctions.getValueFromJson("ShowTime", settingsJson) == "true")
+            {
+                DateTime currentTime = DateTime.Now;
+                string formattedTime = currentTime.ToString("h:mm tt");
+                TimeLabel.Content = formattedTime;
+                timeTimer.Start();
+            }
+            else
+            {
+                TimeLabel.Content = string.Empty;
             }
         }
     }

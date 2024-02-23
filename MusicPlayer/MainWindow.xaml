@@ -22,7 +22,7 @@
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="13*"/>
             </Grid.RowDefinitions>
-            <Button Click="CrossButtonClick" Margin="0,4,2,0" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Width="44">
+            <Button Click="CrossButtonClick" Margin="0,4,14,0" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Width="44">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Image x:Name="buttonImage" Source="Icons/delete-button.png" Width="36" Height="36"/>
@@ -40,7 +40,7 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Click="MinimizeButtonClick" Margin="0,0,109,13" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="41">
+            <Button Click="MinimizeButtonClick" Margin="0,0,121,13" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="41">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Image x:Name="buttonImage" Source="Icons/minimize.png" Width="36" Height="36" Margin="-1,-3,1,-2"/>
@@ -59,12 +59,10 @@
                 </Button.Style>
             </Button>
             <Label Margin="6,-10,0,10" Content="Music Player" Foreground="White" FontSize="36" Grid.RowSpan="2" HorizontalAlignment="Left" Width="302"/>
-            <Grid Margin="0,0,209,0" MouseLeftButtonDown="OnMouseLeftButtonDown" Grid.RowSpan="2">
-                <Label Margin="4,-2,0,2" HorizontalAlignment="Left" Width="720">
-                    <Label/>
-                </Label>
+            <Grid Margin="0,0,162,0" MouseLeftButtonDown="OnMouseLeftButtonDown" Grid.RowSpan="2">
+                <Label Name="TimeLabel" Height="44" Margin="225,6,2,6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" FontSize="22"/>
             </Grid>
-            <Button Click="MaximizeButtonClick" Margin="0,0,53,11" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="39" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="43">
+            <Button Click="MaximizeButtonClick" Margin="0,0,65,11" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="39" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="43">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Image x:Name="buttonImage" Source="/Icons/maximize.png" Width="36" Height="36"/>
@@ -85,7 +83,6 @@
         </Grid>
         <Border BorderBrush="Aqua" BorderThickness="2" Margin="0,72,0,0" CornerRadius="10" HorizontalAlignment="Left" Width="232">
             <Grid>
-
                 <Button Content="Playlist" Margin="3,25,3,0" FontSize="25" Click="PlaylistButtonClick" Height="36" VerticalAlignment="Top">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -222,7 +219,7 @@
                     </Button.Style>
                 </Button>
                 <!--hidden because no use needed right now-->
-                <Button Content="Settings" Margin="3,0,3,0" FontSize="30" Click="SettingButtonClick" Grid.Row="1" Height="40" VerticalAlignment="Bottom" Visibility="Hidden">
+                <Button Content="Settings" Margin="3,0,3,12" FontSize="30" Click="SettingButtonClick" Height="40" VerticalAlignment="Bottom">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -575,7 +572,7 @@
                         </Style>
                     </Button.Style>
                     <StackPanel>
-                        <Image Source="/Icons/previous-song.png" Width="20" Height="20"/>
+                        <Image Source="/Icons/Control Buttons/previous-song.png" Width="20" Height="20"/>
                     </StackPanel>
                 </Button>
                 <Button FontSize="20" Click="NextSongButtonClick" Margin="0,9,4,9" HorizontalAlignment="Right" Width="34">
@@ -623,7 +620,7 @@
                         </Style>
                     </Button.Style>
                     <StackPanel>
-                        <Image Source="/Icons/next-song.png" Width="20" Height="20"/>
+                        <Image Source="/Icons/Control Buttons/next-song.png" Width="20" Height="20"/>
                     </StackPanel>
                 </Button>
                 <Border BorderBrush="Black" BorderThickness="1"  Background="Black" CornerRadius="20" Margin="43,0,43,0">
