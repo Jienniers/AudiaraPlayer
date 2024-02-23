@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MusicPlayer"
     xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Music Player" 
         Height="578" Width="952" 
         WindowStartupLocation="CenterScreen"
         MinHeight="610" MinWidth="900"
@@ -22,10 +22,10 @@
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="13*"/>
             </Grid.RowDefinitions>
-            <Button Click="CrossButtonClick" Margin="0,2,-2,0" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="54" VerticalAlignment="Top" HorizontalAlignment="Right" Width="77">
+            <Button Click="CrossButtonClick" Margin="0,4,2,0" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Width="44">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Image x:Name="buttonImage" Source="Icons/delete-button.png" Width="50" Height="50"/>
+                        <Image x:Name="buttonImage" Source="Icons/delete-button.png" Width="36" Height="36"/>
                     </ControlTemplate>
                 </Button.Template>
                 <Button.Style>
@@ -40,10 +40,10 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Click="MinimizeButtonClick" Margin="0,0,135,2" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="52" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89">
+            <Button Click="MinimizeButtonClick" Margin="0,0,109,13" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="41">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Image x:Name="buttonImage" Source="Icons/minimize.png" Width="50" Height="50"/>
+                        <Image x:Name="buttonImage" Source="Icons/minimize.png" Width="36" Height="36" Margin="-1,-3,1,-2"/>
                     </ControlTemplate>
                 </Button.Template>
                 <Button.Style>
@@ -64,10 +64,10 @@
                     <Label/>
                 </Label>
             </Grid>
-            <Button Click="MaximizeButtonClick" Margin="0,0,63,2" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="52" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89">
+            <Button Click="MaximizeButtonClick" Margin="0,0,53,11" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="39" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="43">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Image x:Name="buttonImage" Source="/Icons/maximize.png" Width="50" Height="50"/>
+                        <Image x:Name="buttonImage" Source="/Icons/maximize.png" Width="36" Height="36"/>
                     </ControlTemplate>
                 </Button.Template>
                 <Button.Style>
@@ -85,12 +85,8 @@
         </Grid>
         <Border BorderBrush="Aqua" BorderThickness="2" Margin="0,72,0,0" CornerRadius="10" HorizontalAlignment="Left" Width="232">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <!-- Add more RowDefinitions if needed -->
-                </Grid.RowDefinitions>
-                <Button Content="Playlist" Margin="3,21,3,354" FontSize="36" Click="PlaylistButtonClick">
+
+                <Button Content="Playlist" Margin="3,25,3,0" FontSize="25" Click="PlaylistButtonClick" Height="36" VerticalAlignment="Top">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -135,7 +131,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Content="Favourites" Margin="3,96,3,279" FontSize="36" Click="FavouriteButtonClick">
+                <Button Content="Favourites" Margin="3,103,3,0" FontSize="25" Click="FavouriteButtonClick" Height="38" VerticalAlignment="Top">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -180,7 +176,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button x:Name="YoutubeMusicbtn" Content="Open YT Music" Margin="3,170,3,205" FontSize="30" Click="YoutubeMusicButtonClick">
+                <Button x:Name="YoutubeMusicbtn" Content="Open YT Music" Margin="3,181,3,0" FontSize="25" Click="YoutubeMusicButtonClick" Height="36" VerticalAlignment="Top">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -530,7 +526,7 @@
                 </Grid>
             </Button>
         </Grid>
-        <Grid Margin="243,91,3,82">
+        <Grid Margin="243,69,3,82">
             <Label Name="startDuration" Content="00:00:00" Margin="11,0,0,5" Foreground="White" FontSize="20" Height="33" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="135"/>
             <Label Name="totalDuration" Content="00:00:00" Margin="0,0,3,5" Foreground="White" FontSize="20" Height="33" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="83"/>
             <Grid Margin="0,0,0,37">
@@ -637,7 +633,7 @@
                 </Border>
             </Grid>
         </Grid>
-        <Border Name="ytMusicGrid" Margin="242,76,0,0" Visibility="Hidden">
+        <Border Name="ytMusicGrid" Margin="242,66,0,0" Visibility="Hidden">
             <wv2:WebView2 Name="webView"/>
         </Border>
     </Grid>
