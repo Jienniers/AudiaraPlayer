@@ -11,11 +11,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\Control Buttons\Fav-song.png" />
+    <None Remove="Icons\Control Buttons\pause.png" />
+    <None Remove="Icons\Control Buttons\Play.png" />
+    <None Remove="Icons\Control Buttons\stop-button.png" />
     <None Remove="Icons\delete-button.png" />
     <None Remove="Icons\Icon.png" />
     <None Remove="Icons\maximize.png" />
     <None Remove="Icons\minimize.png" />
+    <None Remove="Icons\next-song.png" />
     <None Remove="Icons\playlist.png" />
+    <None Remove="Icons\previous-song.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,11 +35,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Icons\Control Buttons\Fav-song.png" />
+    <Resource Include="Icons\Control Buttons\pause.png" />
+    <Resource Include="Icons\Control Buttons\Play.png" />
+    <Resource Include="Icons\Control Buttons\stop-button.png" />
     <Resource Include="Icons\delete-button.png" />
     <Resource Include="Icons\Icon.png" />
     <Resource Include="Icons\maximize.png" />
     <Resource Include="Icons\minimize.png" />
+    <Resource Include="Icons\next-song.png" />
     <Resource Include="Icons\playlist.png" />
+    <Resource Include="Icons\previous-song.png" />
   </ItemGroup>
 
 </Project>

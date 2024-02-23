@@ -149,10 +149,10 @@ namespace MusicPlayer
                 mediaElement.Play();
                 CallFunctions callfunctions = new CallFunctions(webView);
                 callfunctions.updateFileDetail(Mp3FileDetail, songPlayingPath);
+                this.slider.Value = 0;
+                this.progressBar.Value = 0;
+                isPlaying = true;
             }
-            this.slider.Value = 0;
-            this.progressBar.Value = 0;
-            isPlaying = true;
         }
 
         private void MediaElement_MediaOpened(object sender, RoutedEventArgs e)
@@ -220,6 +220,9 @@ namespace MusicPlayer
                 {
                     mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
                     mediaElement.Play();
+                    CallFunctions callfunctions = new CallFunctions(webView);
+                    string fileNameToGet = playlist_songs[playlistIndex];
+                    callfunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
                     playlistIndex++;
                     if (playlistIndex >= playlist_songs.Count)
                     {
@@ -271,6 +274,7 @@ namespace MusicPlayer
         private void YoutubeMusicButtonClick(object sender, RoutedEventArgs e)
         {
             CallFunctions callFunctions = new CallFunctions(webView);
+            mediaElement.Stop();
             try
             {
                 if (!ytMusicOpened)
@@ -335,6 +339,47 @@ namespace MusicPlayer
                     WindowState = WindowState.Normal;
                     maximized = false;
                 }
+            }
+        }
+
+        private void PreviousSongButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (playlistIndex > 0)
+            {
+                playlistIndex--;
+            }
+            else
+            {
+                playlistIndex = playlist_songs.Count - 1;
+            }
+
+            PlayCurrentSong();
+        }
+
+        private void NextSongButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (playlistIndex < playlist_songs.Count - 1)
+            {
+                playlistIndex++;
+            }
+            else
+            {
+                playlistIndex = 0;
+            }
+
+            PlayCurrentSong();
+        }
+
+        private void PlayCurrentSong()
+        {
+            if (playlistIndex >= 0 && playlistIndex < playlist_songs.Count)
+            {
+                mediaElement.Source = new Uri(playlist_songs[playlistIndex], UriKind.RelativeOrAbsolute);
+                mediaElement.Play();
+                CallFunctions callfunctions = new CallFunctions(webView);
+                string fileNameToGet = playlist_songs[playlistIndex];
+                callfunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
+                if (!File.Exists(playlist_songs[playlistIndex])) MessageBox.Show("File not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
