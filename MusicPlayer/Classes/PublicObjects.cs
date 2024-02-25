@@ -29,8 +29,15 @@ namespace MusicPlayer.Classes
 
         public static void PlayMusic(MediaElement mediaElement, string filepath)
         {
-            mediaElement.Source = new Uri(filepath, UriKind.RelativeOrAbsolute);
-            mediaElement.Play();
+            if (MainWindow.youtubeMusicPlaying)
+            {
+                MessageBoxs.ErrorMessageBoxs.YoutubeMusicPlaying();
+            }
+            else
+            {
+                mediaElement.Source = new Uri(filepath, UriKind.RelativeOrAbsolute);
+                mediaElement.Play();
+            }
         }
 
         public class Jsons
@@ -84,6 +91,7 @@ namespace MusicPlayer.Classes
             {
                 public static readonly string showTimeKeyJson = "ShowTime";
                 public static readonly string timeFormatKeyJson = "TimeFormat";
+                public static readonly string keepPlayingKeyJson = "YTMusicKeepPlaying";
             }
         }
 
@@ -99,6 +107,11 @@ namespace MusicPlayer.Classes
                 public static void FileNotFound()
                 {
                     MessageBox.Show("File not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                public static void YoutubeMusicPlaying()
+                {
+                    MessageBox.Show("Youtube Music Already Playing!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 

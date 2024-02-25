@@ -28,6 +28,8 @@ namespace MusicPlayer.Dialogs
         private string settingsJsonFilePath = PublicObjects.Jsons.JsonFilePaths.settingsJsonFilePath;
         private string showTimeKeyJson = PublicObjects.Jsons.SettingsJsonFileKeys.showTimeKeyJson;
         private string timeFormatKeyJson = PublicObjects.Jsons.SettingsJsonFileKeys.timeFormatKeyJson;
+        private string keepPlayingKeyJson = PublicObjects.Jsons.SettingsJsonFileKeys.keepPlayingKeyJson;
+
 
         public Settings()
         {
@@ -51,6 +53,8 @@ namespace MusicPlayer.Dialogs
                     {
                         string showTime = PublicObjects.Jsons.GetValueFromJsonKey(settings.settingsJsonFilePath, settings.showTimeKeyJson);
                         string timeFormat = PublicObjects.Jsons.GetValueFromJsonKey(settings.settingsJsonFilePath, settings.timeFormatKeyJson);
+                        string keepplayingYoutubeMusic = PublicObjects.Jsons.GetValueFromJsonKey(settings.settingsJsonFilePath, settings.keepPlayingKeyJson);
+
                         switch (showTime)
                         {
                             case "true":
@@ -73,21 +77,33 @@ namespace MusicPlayer.Dialogs
                                 settings.timeFormatComboBox.SelectedIndex = 1;
                                 break;
                         }
+
+                        switch (keepplayingYoutubeMusic)
+                        {
+                            case "true":
+                                settings.KeepPlayingYoutubeMusicComboBox.SelectedIndex = 0;
+                                break;
+                            case "false":
+                                settings.KeepPlayingYoutubeMusicComboBox.SelectedIndex = 1;
+                                break;
+                        }
                     }
                     else
                     {
                         Dictionary<string, string> UpdateFolderSettingData = new Dictionary<string, string>();
                         UpdateFolderSettingData.Add(settings.showTimeKeyJson, "true");
                         UpdateFolderSettingData.Add(settings.timeFormatKeyJson, "12");
+                        UpdateFolderSettingData.Add(settings.keepPlayingKeyJson, "False");
                         PublicObjects.Jsons.AddDataToJsonFile(settings.settingsJsonFilePath, UpdateFolderSettingData);
                         settings.ShowTimeComboBox.SelectedIndex = 0;
                         settings.timeFormatComboBox.SelectedIndex = 0;
+                        settings.KeepPlayingYoutubeMusicComboBox.SelectedIndex = 1;
                     }
                 }
             }
         }
 
-        private void AddFolderComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ShowTimeComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Show Time or not Combo Box
             int showTimeselectedIndex = ShowTimeComboBox.SelectedIndex;
@@ -103,8 +119,13 @@ namespace MusicPlayer.Dialogs
                 PublicObjects.Jsons.AddDataToJsonFile(settingsJsonFilePath, UpdateFolderSettingData);
             }
 
+        }
+
+        private void TimeFormatComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
             //12 hour or 24 Hour ComboBox Change
             int timeFormatselectedIndex = timeFormatComboBox.SelectedIndex;
+            Dictionary<string, string> UpdateFolderSettingData = new Dictionary<string, string>();
             if (timeFormatselectedIndex == 0)
             {
                 UpdateFolderSettingData.Add(timeFormatKeyJson, "12");
@@ -113,6 +134,26 @@ namespace MusicPlayer.Dialogs
             else if (timeFormatselectedIndex == 1)
             {
                 UpdateFolderSettingData.Add(timeFormatKeyJson, "24");
+                PublicObjects.Jsons.AddDataToJsonFile(settingsJsonFilePath, UpdateFolderSettingData);
+            }
+        }
+
+
+        private void KeepPlayingComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Keep the music playing or not after YT Music has been closed
+            int timeFormatselectedIndex = KeepPlayingYoutubeMusicComboBox.SelectedIndex;
+            Dictionary<string, string> UpdateFolderSettingData = new Dictionary<string, string>();
+            if (timeFormatselectedIndex == 0)
+            {
+                //MainWindow.youtubeMusicPlaying = true;
+                UpdateFolderSettingData.Add(keepPlayingKeyJson, "true");
+                PublicObjects.Jsons.AddDataToJsonFile(settingsJsonFilePath, UpdateFolderSettingData);
+            }
+            else if (timeFormatselectedIndex == 1)
+            {
+                //MainWindow.youtubeMusicPlaying = false;
+                UpdateFolderSettingData.Add(keepPlayingKeyJson, "false");
                 PublicObjects.Jsons.AddDataToJsonFile(settingsJsonFilePath, UpdateFolderSettingData);
             }
         }

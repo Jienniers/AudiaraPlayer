@@ -10,6 +10,7 @@ using System.Text.Json;
 using MusicPlayer.Dialogs;
 using Microsoft.Web.WebView2.Wpf;
 using MusicPlayer.Classes;
+using static MusicPlayer.Classes.PublicObjects;
 
 namespace MusicPlayer
 {
@@ -25,8 +26,14 @@ namespace MusicPlayer
         private Dictionary<string, string> FavJsonData = new Dictionary<string, string>();
         private bool ytMusicOpened = false;
         private bool maximized = false;
+        public static bool youtubeMusicPlaying = false;
+
+        //Jsons File Paths
         private string settingsJson = PublicObjects.Jsons.JsonFilePaths.settingsJsonFilePath;
         private string favouritesJson = PublicObjects.Jsons.JsonFilePaths.favouriteJsonFilePath;
+
+        //keys from settings json
+        string keepPlayingYoutubeMusic = PublicObjects.Jsons.SettingsJsonFileKeys.keepPlayingKeyJson;
 
 
         public MainWindow()
@@ -117,6 +124,11 @@ namespace MusicPlayer
 
         public void PlayNextSong()
         {
+            if (youtubeMusicPlaying)
+            {
+                MessageBoxs.ErrorMessageBoxs.YoutubeMusicPlaying();
+                return;
+            }
             if (playlistIndex < playlist_songs.Count)
             {
                 playlistIndex++;
@@ -160,6 +172,11 @@ namespace MusicPlayer
 
         private void PlayButton(object sender, RoutedEventArgs e)
         {
+            if (youtubeMusicPlaying)
+            {
+                MessageBoxs.ErrorMessageBoxs.YoutubeMusicPlaying();
+                return;
+            }
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 FileName = "Music",
@@ -238,7 +255,14 @@ namespace MusicPlayer
 
         private void ResumeSongButtonClick(object sender, RoutedEventArgs e)
         {
-            mediaElement.Play();
+            if (youtubeMusicPlaying)
+            {
+                MessageBoxs.ErrorMessageBoxs.YoutubeMusicPlaying();
+            }
+            else
+            {
+                mediaElement.Play();
+            }
             //if (isPlaying)
             //{
             //    mediaElement.Play();
@@ -299,20 +323,21 @@ namespace MusicPlayer
         {
             CallFunctions callFunctions = new CallFunctions();
             mediaElement.Stop();
+            callFunctions.InitializeWebView(webView);
             try
             {
                 if (!ytMusicOpened)
                 {
-                    callFunctions.InitializeWebView(webView);
-                    callFunctions.LoadWebPage("https://music.youtube.com/", webView);
+                    if (!youtubeMusicPlaying) callFunctions.LoadWebPage("https://music.youtube.com/", webView);
                     ytMusicGrid.Visibility = Visibility.Visible;
                     ytMusicOpened = true;
                     YoutubeMusicbtn.Content = "Close YT Music";
                 }
                 else
                 {
-                    callFunctions.InitializeWebView(webView);
-                    webView.Source = new Uri("about:blank");
+                    string keepplayingYoutubeMusic = PublicObjects.Jsons.GetValueFromJsonKey(settingsJson, keepPlayingYoutubeMusic);
+                    youtubeMusicPlaying = (keepplayingYoutubeMusic == "true") ? true : false;
+                    if (keepplayingYoutubeMusic == "false") webView.Source = new Uri("about:blank");
                     ytMusicGrid.Visibility = Visibility.Hidden;
                     ytMusicOpened = false;
                     YoutubeMusicbtn.Content = "Open YT Music";
