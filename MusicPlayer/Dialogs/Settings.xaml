@@ -12,14 +12,14 @@
     
     
     <Grid>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Width="148">
+        <Border  BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Width="148">
             <Grid HorizontalAlignment="Left" Width="144">
                 <Button VerticalAlignment="Top" Margin="0,24,0,0" Height="29" Foreground="White" HorizontalAlignment="Center" Width="144" FontSize="16" Content="Home">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Grid>
                                 <!-- Background rectangle with adjustable opacity -->
-                                <Rectangle x:Name="BackgroundRect" Fill="#FFFFFF" Opacity="0.1" RadiusX="0" RadiusY="0"/>
+                                <Rectangle x:Name="homeButtonBackground" Fill="#FFFFFF" Opacity="0.1" RadiusX="0" RadiusY="0"/>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -33,7 +33,7 @@
                             <ControlTemplate.Triggers>
                                 <!-- Opacity change on hover -->
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="BackgroundRect" Property="Opacity" Value="0.05"/>
+                                    <Setter TargetName="homeButtonBackground" Property="Opacity" Value="0.05"/>
                                 </Trigger>
                                 <!-- Change cursor to hand on hover -->
                                 <Trigger Property="IsMouseOver" Value="True">
@@ -54,7 +54,12 @@
                             <ComboBoxItem Content="True" />
                             <ComboBoxItem Content="False" />
                         </ComboBox>
-                        
+
+                        <Label Content="Time Format: " VerticalAlignment="Center" Foreground="White" />
+                        <ComboBox x:Name="timeFormatComboBox" Margin="5" VerticalAlignment="Center" SelectionChanged="AddFolderComboBoxSelectionChanged">
+                            <ComboBoxItem Content="12 hours" />
+                            <ComboBoxItem Content="24 hours" />
+                        </ComboBox>
                     </StackPanel>
                 </GroupBox>
             </Grid>

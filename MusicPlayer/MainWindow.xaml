@@ -189,7 +189,6 @@
                         <TextBlock Text="Favourites" VerticalAlignment="Bottom" Margin="34,0,-34,-2"/>
                     </Grid>
                 </Button>
-
                 <Button x:Name="YoutubeMusicbtn" Margin="3,181,3,0" FontSize="25" Click="YoutubeMusicButtonClick" Height="36" VerticalAlignment="Top">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">

@@ -100,7 +100,6 @@
                 </Style>
             </Button.Style>
         </Button>
-        <ListBox x:Name="SongsFavs" BorderThickness="0" Background="#424F64" Foreground="White" HorizontalAlignment="Center" Height="276" Margin="0,67,0,0" VerticalAlignment="Top" Width="594" d:ItemsSource="{d:SampleData ItemCount=1}"/>
-
+        <ListBox x:Name="SongsFavsListBox" BorderThickness="0" Background="#424F64" Foreground="White" HorizontalAlignment="Center" Height="276" Margin="0,67,0,0" VerticalAlignment="Top" Width="594" d:ItemsSource="{d:SampleData ItemCount=1}"/>
     </Grid>
 </Window>

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
 using Ookii.Dialogs.Wpf;
+using MusicPlayer.Classes;
 
 
 namespace MusicPlayer
@@ -23,8 +24,7 @@ namespace MusicPlayer
     {
         private int playlistNum = 0;
         Dictionary<String, String> files = new Dictionary<String, String>();
-        //public List<string> filePathsToSongs = new List<string>();
-        //public readonly List<string> ListBoxItems = new List<string>();
+        private List<String> playlist_songs = PublicObjects.playlistSongs;
 
         private MainWindow mainWindow;
         public Playlist(MainWindow mainWindow)
@@ -50,7 +50,7 @@ namespace MusicPlayer
                 if (!files.ContainsValue(filename))
                 {
                     files.Add(fileNameOnly, filename);
-                    AddItemToListBox(playlistNum.ToString(), fileNameOnly);
+                    PublicObjects.ListBoxs.AddItemToListBox(SongsPlaylist, playlistNum.ToString(), fileNameOnly);
                 }
                 else
                 {
@@ -61,10 +61,12 @@ namespace MusicPlayer
 
         private void PlayPlaylist(object sender, RoutedEventArgs e)
         {
+            playlist_songs.Clear();
             foreach (string items in files.Values)
             {
-                mainWindow.playlist_songs.Add(items);
+                playlist_songs.Add(items);
             }
+            mainWindow.PlayNextSong();
             Close();
         }
 
@@ -79,15 +81,11 @@ namespace MusicPlayer
                 foreach (String item in files.Keys)
                 {
                     playlistNum++;
-                    AddItemToListBox(playlistNum.ToString(), item);
+                    PublicObjects.ListBoxs.AddItemToListBox(SongsPlaylist, playlistNum.ToString(), item);
 
-                    foreach (string items in files.Values)
+                    if (playlist_songs.Contains(item))
                     {
-                        MessageBox.Show(items);
-                    }
-                    if (mainWindow.playlist_songs.Contains(item))
-                    {
-                        mainWindow.playlist_songs.Remove(item);
+                        playlist_songs.Remove(item);
                     }
                 }
             }
@@ -97,12 +95,8 @@ namespace MusicPlayer
         {
             SongsPlaylist.Items.Clear();
             files.Clear();
-            mainWindow.playlist_songs.Clear();
+            playlist_songs.Clear();
             playlistNum = 0;
-            foreach (string items in files.Values)
-            {
-                MessageBox.Show(items);
-            }
         }
 
         private void AddFolder(object sender, RoutedEventArgs e)
@@ -116,12 +110,11 @@ namespace MusicPlayer
                     string selectedFolderPath = dialog.SelectedPath;
                     try
                     {
-                        // Get all files with the ".mp3" extension in the specified folder
                         string[] mp3Files = Directory.GetFiles(selectedFolderPath, "*.mp3");
                         foreach (string mp3File in mp3Files)
                         {
                             playlistNum++;
-                            AddItemToListBox(playlistNum.ToString(), Path.GetFileName(mp3File));
+                            PublicObjects.ListBoxs.AddItemToListBox(SongsPlaylist, playlistNum.ToString(), Path.GetFileName(mp3File));
                             files.Add(Path.GetFileName(mp3File), mp3File);   
                         }
                     }
@@ -131,30 +124,6 @@ namespace MusicPlayer
                     }
                 }
             }
-        }
-
-        private void AddItemToListBox(string itemName, string itemDescription)
-        {
-            StackPanel stackPanel = new StackPanel();
-            stackPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
-
-            TextBlock textBlockName = new TextBlock();
-            textBlockName.Text = itemName;
-            textBlockName.Margin = new Thickness(5);
-
-            TextBlock textBlockDescription = new TextBlock();
-            textBlockDescription.Text = itemDescription;
-            textBlockDescription.Margin = new Thickness(5);
-
-
-            stackPanel.Children.Add(textBlockName);
-            stackPanel.Children.Add(textBlockDescription);
-
-            ListBoxItem listBoxItem = new ListBoxItem();
-            listBoxItem.Content = stackPanel;
-            listBoxItem.Tag = itemDescription;
-
-            SongsPlaylist.Items.Add(listBoxItem);
         }
 
         private string GetSelectedDescription()
