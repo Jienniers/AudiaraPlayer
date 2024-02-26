@@ -83,8 +83,8 @@ namespace MusicPlayer.Classes
 
             public class JsonFilePaths
             {
-                public static readonly string settingsJsonFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MusicPlayer/Data/Settings.json");
-                public static readonly string favouriteJsonFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MusicPlayer/Data/Favourites.json");
+                public static readonly string settingsJsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MusicPlayer/Data/Settings.json");
+                public static readonly string favouriteJsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MusicPlayer/Data/Favourites.json");
             }
 
             public class SettingsJsonFileKeys
