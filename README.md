@@ -42,8 +42,5 @@ Feel Free to open any [Issue](https://github.com/JustinDrew101/Music-Player/issu
 
 Feel Free to do any [Pull Requests](https://github.com/JustinDrew101/Music-Player/pulls)
 
-## Bugs
-Right now you can't open the settings dialog if you have opened the app through a file
-
 ## Support
 For support, email codeMaestroy105@outlook.com
