@@ -9,7 +9,7 @@ A Music Player with Different Functionalities, Check Out
 - Playlist
 - Favourites
 
-
+## Logo
 ![Logo](https://cdn.discordapp.com/attachments/1074754322585366671/1211719567013974036/Icon.png?ex=65ef38c9&is=65dcc3c9&hm=822533d83c3673d73f07d77852ceb2e6bc6bf485131f73e9b6875a919dd29dbd&)
 
 
@@ -31,16 +31,17 @@ All the json Configuration files are stored in the folder where the app is insta
 - Windows
 ## Authors
 
-- [@Drew101](https://github.com/JustinDrew101/)
+- [@Jiennier](https://github.com/Jienniers/)
 
 
 ## Issues
 
-Feel Free to open any [Issue](https://github.com/JustinDrew101/Music-Player/issues)
+Feel Free to open any [Issue](https://github.com/Jienniers/Music-Player/issues)
 
 ## Pull Requests
 
-Feel Free to do any [Pull Requests](https://github.com/JustinDrew101/Music-Player/pulls)
+Feel Free to do any [Pull Requests](https://github.com/Jienniers/Music-Player/pulls)
 
 ## Support
-For support, email codeMaestroy105@outlook.com
+
+If you encounter any issues or have suggestions for improvement, please submit an issue on the GitHub repository.
