@@ -15,8 +15,6 @@ A Music Player with Different Functionalities, Check Out
 
 ## Screenshots
 
-![App Screenshot](https://cdn.discordapp.com/attachments/1074754322585366671/1211719796413042778/image.png?ex=65ef3900&is=65dcc400&hm=a6fca0bd9d47d11d2540992b2a033193959d7dacfd7ecc366c4da7b98ab94b66&)
-
 ![App Screenshot](https://github.com/Jienniers/Music-Player/blob/main/Images/Screenshot/Screenshots1.png)
 
 ![App Screenshot](https://github.com/Jienniers/Music-Player/blob/main/Images/Screenshot/Screenshot2.png)
