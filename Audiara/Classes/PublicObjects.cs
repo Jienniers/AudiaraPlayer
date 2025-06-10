@@ -13,15 +13,8 @@ namespace Audiara.Classes
 
         public static void PlayMusic(MediaElement mediaElement, string filepath)
         {
-            if (MainWindow.youtubeMusicPlaying)
-            {
-                MessageBoxService.YoutubeMusicPlaying();
-            }
-            else
-            {
-                mediaElement.Source = new Uri(filepath, UriKind.RelativeOrAbsolute);
-                mediaElement.Play();
-            }
+            mediaElement.Source = new Uri(filepath, UriKind.RelativeOrAbsolute);
+            mediaElement.Play();
         }
 
         public class Jsons

@@ -20,11 +20,8 @@ namespace Audiara
         internal bool isPlaying = false;
         private string songPlayingPath;
         private Dictionary<string, string> FavJsonData = new Dictionary<string, string>();
-        private bool ytMusicOpened = false;
         private bool maximized = false;
-        public static bool youtubeMusicPlaying = false;
-
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -78,11 +75,6 @@ namespace Audiara
 
         public void PlayNextSong()
         {
-            if (youtubeMusicPlaying)
-            {
-                MessageBoxService.YoutubeMusicPlaying();
-                return;
-            }
             if (playlistIndex < playlist_songs.Count)
             {
                 playlistIndex++;
@@ -126,11 +118,6 @@ namespace Audiara
 
         private void PlayButton(object sender, RoutedEventArgs e)
         {
-            if (youtubeMusicPlaying)
-            {
-                MessageBoxService.YoutubeMusicPlaying();
-                return;
-            }
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
                 FileName = "Music",
@@ -209,14 +196,7 @@ namespace Audiara
 
         private void ResumeSongButtonClick(object sender, RoutedEventArgs e)
         {
-            if (youtubeMusicPlaying)
-            {
-                MessageBoxService.YoutubeMusicPlaying();
-            }
-            else
-            {
-                mediaElement.Play();
-            }
+            mediaElement.Play();
             //if (isPlaying)
             //{
             //    mediaElement.Play();

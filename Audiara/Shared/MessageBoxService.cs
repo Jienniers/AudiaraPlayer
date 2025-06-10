@@ -16,6 +16,5 @@ public static class MessageBoxService
 
     public static void NoSongPlaying() => ShowError("No song playing.");
     public static void FileNotFound() => ShowError("File not found.");
-    public static void YoutubeMusicPlaying() => ShowError("YouTube Music already playing!");
     public static void FavouriteAdded(string songName) => ShowSuccess($"{songName} was added to favourites.");
 }
