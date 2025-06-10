@@ -59,7 +59,9 @@
                 </Button.Style>
             </Button>
             <Label Margin="6,-10,0,10" Content="Music Player" Foreground="White" FontSize="36" Grid.RowSpan="2" HorizontalAlignment="Left" Width="302"/>
-
+            <Grid Margin="0,0,162,0" MouseLeftButtonDown="OnMouseLeftButtonDown" Grid.RowSpan="2">
+                <Label Name="TimeLabel" Height="44" Margin="10,6,2,6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" FontSize="22"/>
+            </Grid>
             <Button Click="MaximizeButtonClick" Margin="0,0,65,11" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="39" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="43">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
