@@ -29,9 +29,9 @@ namespace Audiara
         {
             var dialog = new OpenFileDialog
             {
-                FileName = "Music", // Default file name
-                DefaultExt = ".mp3", // Default file extension
-                Filter = "Audio Files (.mp3)|*.mp3" // Filter files by extension
+                FileName = "Music",
+                DefaultExt = ".mp3",
+                Filter = "Audio Files (.mp3)|*.mp3"
             };
             bool? result = dialog.ShowDialog();
             if (result == true)
