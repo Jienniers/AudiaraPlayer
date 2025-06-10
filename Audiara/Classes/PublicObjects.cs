@@ -7,9 +7,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using MusicPlayer.Shared;
+using Audiara.Shared;
 
-namespace MusicPlayer.Classes
+namespace Audiara.Classes
 {
     public class PublicObjects
     {
@@ -72,8 +72,8 @@ namespace MusicPlayer.Classes
 
             public class JsonFilePaths
             {
-                public static readonly string settingsJsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MusicPlayer/Data/Settings.json");
-                public static readonly string favouriteJsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MusicPlayer/Data/Favourites.json");
+                public static readonly string settingsJsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audiara/Data/Settings.json");
+                public static readonly string favouriteJsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audiara/Data/Favourites.json");
             }
 
             public class SettingsJsonFileKeys

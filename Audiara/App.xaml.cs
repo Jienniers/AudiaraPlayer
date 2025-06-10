@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace MusicPlayer
+namespace Audiara
 {
     /// <summary>
     /// Interaction logic for App.xaml

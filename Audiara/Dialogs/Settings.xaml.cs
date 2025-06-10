@@ -1,9 +1,9 @@
-﻿using MusicPlayer.Classes;
+﻿using Audiara.Classes;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MusicPlayer.Dialogs
+namespace Audiara.Dialogs
 {
     /// <summary>
     /// Interaction logic for Settings.xaml

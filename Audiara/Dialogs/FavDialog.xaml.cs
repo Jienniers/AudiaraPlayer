@@ -1,5 +1,4 @@
-﻿using MusicPlayer.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,8 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Audiara.Classes;
 
-namespace MusicPlayer
+namespace Audiara
 {
     /// <summary>
     /// Interaction logic for FavDialog.xaml

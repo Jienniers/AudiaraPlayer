@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicPlayer", "MusicPlayer\MusicPlayer.csproj", "{994C05A1-3625-4791-A21B-EC638D5248A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Audiara", "Audiara\Audiara.csproj", "{994C05A1-3625-4791-A21B-EC638D5248A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

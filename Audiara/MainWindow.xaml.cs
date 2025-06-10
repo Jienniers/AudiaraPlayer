@@ -3,13 +3,13 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using System.IO;
-using MusicPlayer.Dialogs;
+using Audiara.Classes;
+using Audiara.Shared;
+using Audiara.Dialogs;
 using Microsoft.Web.WebView2.Wpf;
-using MusicPlayer.Classes;
-using MusicPlayer.Shared;
-using static MusicPlayer.Classes.PublicObjects;
+using static Audiara.Classes.PublicObjects;
 
-namespace MusicPlayer
+namespace Audiara
 {
     public partial class MainWindow : Window
     {

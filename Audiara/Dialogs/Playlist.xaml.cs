@@ -11,11 +11,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
+using Audiara.Classes;
 using Ookii.Dialogs.Wpf;
-using MusicPlayer.Classes;
 
 
-namespace MusicPlayer
+namespace Audiara
 {
     /// <summary>
     /// Interaction logic for Playlist.xaml

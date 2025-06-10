@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace MusicPlayer.Shared;
+namespace Audiara.Shared;
 
 public static class MessageBoxService
 {
