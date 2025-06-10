@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using Audiara.Classes;
+using Audiara.Shared;
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -41,7 +42,7 @@ namespace Audiara
                 if (!files.ContainsValue(filename))
                 {
                     files.Add(fileNameOnly, filename);
-                    PublicObjects.ListBoxs.AddItemToListBox(SongsPlaylist, playlistNum.ToString(), fileNameOnly);
+                    ListBoxHelper.AddItem(SongsPlaylist, playlistNum.ToString(), fileNameOnly);
                 }
                 else
                 {
@@ -72,7 +73,7 @@ namespace Audiara
                 foreach (String item in files.Keys)
                 {
                     playlistNum++;
-                    PublicObjects.ListBoxs.AddItemToListBox(SongsPlaylist, playlistNum.ToString(), item);
+                    ListBoxHelper.AddItem(SongsPlaylist, playlistNum.ToString(), item);
 
                     if (playlist_songs.Contains(item))
                     {
@@ -105,7 +106,7 @@ namespace Audiara
                         foreach (string mp3File in mp3Files)
                         {
                             playlistNum++;
-                            PublicObjects.ListBoxs.AddItemToListBox(SongsPlaylist, playlistNum.ToString(), Path.GetFileName(mp3File));
+                            ListBoxHelper.AddItem(SongsPlaylist, playlistNum.ToString(), Path.GetFileName(mp3File));
                             files.Add(Path.GetFileName(mp3File), mp3File);   
                         }
                     }

@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using Audiara.Classes;
+using Audiara.Shared;
 
 namespace Audiara
 {
@@ -44,7 +45,7 @@ namespace Audiara
                         foreach (string items in FavSongsList.Keys)
                         {
                             CountnumFav++;
-                            PublicObjects.ListBoxs.AddItemToListBox(SongsFavsListBox, CountnumFav.ToString(), items);
+                            ListBoxHelper.AddItem(SongsFavsListBox, CountnumFav.ToString(), items);
                         }
                     }
                 }
@@ -68,7 +69,7 @@ namespace Audiara
                 File.WriteAllText(filePath, json);
 
                 // Remove the corresponding item from the ListBox
-                PublicObjects.ListBoxs.RemoveItemFromListBox(SongsFavsListBox, keyToRemove);
+                ListBoxHelper.RemoveItem(SongsFavsListBox, keyToRemove);
             }
             else
             {
@@ -114,7 +115,7 @@ namespace Audiara
                         // Check if the key already exists in the dictionary
                         if (!FavSongsList.ContainsKey(key))
                         {
-                            PublicObjects.ListBoxs.AddItemToListBox(SongsFavsListBox, CountnumFav.ToString(), key);
+                            ListBoxHelper.AddItem(SongsFavsListBox, CountnumFav.ToString(), key);
                             FavSongsList.Add(key, data[key]);
                         }
                         else
@@ -143,7 +144,7 @@ namespace Audiara
             foreach (string items in FavSongsList.Keys)
             {
                 CountnumFav++;
-                PublicObjects.ListBoxs.AddItemToListBox(SongsFavsListBox, CountnumFav.ToString(), items);
+                ListBoxHelper.AddItem(SongsFavsListBox, CountnumFav.ToString(), items);
             }
         }
 
@@ -160,7 +161,7 @@ namespace Audiara
                     foreach (string items in FavSongsList.Keys)
                     {
                         CountnumFav++;
-                        PublicObjects.ListBoxs.AddItemToListBox(SongsFavsListBox, CountnumFav.ToString(), items);
+                        ListBoxHelper.AddItem(SongsFavsListBox, CountnumFav.ToString(), items);
                     }
                     return;
                 }
