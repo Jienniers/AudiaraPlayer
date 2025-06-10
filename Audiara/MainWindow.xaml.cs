@@ -13,7 +13,7 @@ namespace Audiara
     {
         private bool _isDraggingSlider = false;
         private DispatcherTimer _timer;
-        private readonly  List<String> _playlistSongs = PublicObjects.playlistSongs;
+        private readonly  List<String> _playlistSongs = PublicObjects.PlaylistSongs;
         private int _playlistIndex = 0;
         internal bool IsPlaying = false;
         private string _songPlayingPath;

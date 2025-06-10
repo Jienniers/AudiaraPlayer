@@ -9,7 +9,7 @@ namespace Audiara.Classes
     public class PublicObjects
     {
 
-        public static List<String> playlistSongs = new List<String>();
+        public static List<String> PlaylistSongs = new List<String>();
 
         public static void PlayMusic(MediaElement mediaElement, string filepath)
         {
@@ -60,7 +60,7 @@ namespace Audiara.Classes
 
             public class JsonFilePaths
             {
-                public static readonly string favouriteJsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audiara/Data/Favourites.json");
+                public static readonly string FavouriteJsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audiara/Data/Favourites.json");
             }
         }
     }

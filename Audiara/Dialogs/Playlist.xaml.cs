@@ -14,15 +14,15 @@ namespace Audiara
     /// </summary>
     public partial class Playlist : Window
     {
-        private int playlistNum = 0;
-        Dictionary<String, String> files = new Dictionary<String, String>();
-        private List<String> playlist_songs = PublicObjects.playlistSongs;
+        private int _playlistNum = 0;
+        Dictionary<String, String> _files = new Dictionary<String, String>();
+        private List<String> _playlistSongs = PublicObjects.PlaylistSongs;
 
-        private MainWindow mainWindow;
+        private MainWindow _mainWindow;
         public Playlist(MainWindow mainWindow)
         {
             InitializeComponent();
-            this.mainWindow = mainWindow;
+            this._mainWindow = mainWindow;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -38,11 +38,11 @@ namespace Audiara
             {
                 string filename = dialog.FileName;
                 string fileNameOnly = Path.GetFileName(filename);
-                playlistNum++;
-                if (!files.ContainsValue(filename))
+                _playlistNum++;
+                if (!_files.ContainsValue(filename))
                 {
-                    files.Add(fileNameOnly, filename);
-                    ListBoxHelper.AddItem(SongsPlaylist, playlistNum.ToString(), fileNameOnly);
+                    _files.Add(fileNameOnly, filename);
+                    ListBoxHelper.AddItem(SongsPlaylist, _playlistNum.ToString(), fileNameOnly);
                 }
                 else
                 {
@@ -53,12 +53,12 @@ namespace Audiara
 
         private void PlayPlaylist(object sender, RoutedEventArgs e)
         {
-            playlist_songs.Clear();
-            foreach (string items in files.Values)
+            _playlistSongs.Clear();
+            foreach (string items in _files.Values)
             {
-                playlist_songs.Add(items);
+                _playlistSongs.Add(items);
             }
-            mainWindow.PlayNextSong();
+            _mainWindow.PlayNextSong();
             Close();
         }
 
@@ -66,18 +66,18 @@ namespace Audiara
         {
             if (SongsPlaylist.SelectedItem != null)
             {
-                playlistNum = 0;
-                files.Remove(GetSelectedDescription());
+                _playlistNum = 0;
+                _files.Remove(GetSelectedDescription());
                 SongsPlaylist.Items.Clear();
-                files.Remove(GetSelectedDescription());
-                foreach (String item in files.Keys)
+                _files.Remove(GetSelectedDescription());
+                foreach (String item in _files.Keys)
                 {
-                    playlistNum++;
-                    ListBoxHelper.AddItem(SongsPlaylist, playlistNum.ToString(), item);
+                    _playlistNum++;
+                    ListBoxHelper.AddItem(SongsPlaylist, _playlistNum.ToString(), item);
 
-                    if (playlist_songs.Contains(item))
+                    if (_playlistSongs.Contains(item))
                     {
-                        playlist_songs.Remove(item);
+                        _playlistSongs.Remove(item);
                     }
                 }
             }
@@ -86,9 +86,9 @@ namespace Audiara
         private void ClearBtn(object sender, RoutedEventArgs e)
         {
             SongsPlaylist.Items.Clear();
-            files.Clear();
-            playlist_songs.Clear();
-            playlistNum = 0;
+            _files.Clear();
+            _playlistSongs.Clear();
+            _playlistNum = 0;
         }
 
         private void AddFolder(object sender, RoutedEventArgs e)
@@ -105,9 +105,9 @@ namespace Audiara
                         string[] mp3Files = Directory.GetFiles(selectedFolderPath, "*.mp3");
                         foreach (string mp3File in mp3Files)
                         {
-                            playlistNum++;
-                            ListBoxHelper.AddItem(SongsPlaylist, playlistNum.ToString(), Path.GetFileName(mp3File));
-                            files.Add(Path.GetFileName(mp3File), mp3File);   
+                            _playlistNum++;
+                            ListBoxHelper.AddItem(SongsPlaylist, _playlistNum.ToString(), Path.GetFileName(mp3File));
+                            _files.Add(Path.GetFileName(mp3File), mp3File);   
                         }
                     }
                     catch (Exception ex)

@@ -15,7 +15,7 @@ namespace Audiara
 
         private int _countnumFav = 0;
         private Dictionary<String, String> _favSongsList = new Dictionary<string, string>();
-        readonly string _jsonPath = PublicObjects.Jsons.JsonFilePaths.favouriteJsonFilePath;
+        readonly string _jsonPath = PublicObjects.Jsons.JsonFilePaths.FavouriteJsonFilePath;
         public FavDialog()
         {
             InitializeComponent();
