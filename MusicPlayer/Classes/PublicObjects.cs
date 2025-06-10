@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using MusicPlayer.Shared;
 
 namespace MusicPlayer.Classes
 {
@@ -31,7 +32,7 @@ namespace MusicPlayer.Classes
         {
             if (MainWindow.youtubeMusicPlaying)
             {
-                MessageBoxs.ErrorMessageBoxs.YoutubeMusicPlaying();
+                MessageBoxService.YoutubeMusicPlaying();
             }
             else
             {
@@ -92,35 +93,6 @@ namespace MusicPlayer.Classes
                 public static readonly string showTimeKeyJson = "ShowTime";
                 public static readonly string timeFormatKeyJson = "TimeFormat";
                 public static readonly string keepPlayingKeyJson = "YTMusicKeepPlaying";
-            }
-        }
-
-        public class MessageBoxs
-        {
-            public class ErrorMessageBoxs
-            {
-                public static void NoSongPlaying()
-                {
-                    MessageBox.Show("No Song Playing", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
-                public static void FileNotFound()
-                {
-                    MessageBox.Show("File not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
-                public static void YoutubeMusicPlaying()
-                {
-                    MessageBox.Show("Youtube Music Already Playing!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-
-            public class SuccessMessageBoxs
-            {
-                public static void FavouriteAddedSuccess(string msg)
-                {
-                    MessageBox.Show(msg, "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
             }
         }
 
