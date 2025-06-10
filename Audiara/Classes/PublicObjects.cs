@@ -10,13 +10,7 @@ namespace Audiara.Classes
     {
 
         public static List<String> PlaylistSongs = new List<String>();
-
-        public static void PlayMusic(MediaElement mediaElement, string filepath)
-        {
-            mediaElement.Source = new Uri(filepath, UriKind.RelativeOrAbsolute);
-            mediaElement.Play();
-        }
-
+        
         public class Jsons
         {
 

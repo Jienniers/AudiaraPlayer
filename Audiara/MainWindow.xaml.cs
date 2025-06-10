@@ -34,8 +34,9 @@ namespace Audiara
             if (args.Length > 1)
             {
                 string filePath = args[1];
-                mediaElement.Source = new Uri(filePath, UriKind.RelativeOrAbsolute);
-                mediaElement.Play();
+                
+                MusicPlayerService.PlayMusic(mediaElement, filePath);
+                
                 _songPlayingPath = filePath;
                 CallFunctions.UpdateFileDetail(Mp3FileDetail,filePath);
                 slider.Value = 0;
@@ -77,7 +78,9 @@ namespace Audiara
             {
                 _playlistIndex++;
                 string fileNameToGet = _playlistSongs[_playlistIndex];
-                PublicObjects.PlayMusic(mediaElement, fileNameToGet);
+                
+                MusicPlayerService.PlayMusic(mediaElement, fileNameToGet);
+                
                 CallFunctions.UpdateFileDetail(Mp3FileDetail, fileNameToGet);
                 _songPlayingPath = fileNameToGet;
                 IsPlaying = true;
@@ -91,7 +94,7 @@ namespace Audiara
 
         public void FavPlaySong(string filepath)
         {
-            PublicObjects.PlayMusic(mediaElement, filepath);
+            MusicPlayerService.PlayMusic(mediaElement, filepath);
             _songPlayingPath = filepath;
             CallFunctions.UpdateFileDetail(Mp3FileDetail, filepath);
             this.slider.Value = 0;
@@ -126,7 +129,7 @@ namespace Audiara
             if (result == true)
             {
                 _songPlayingPath = dialog.FileName;
-                PublicObjects.PlayMusic(mediaElement, _songPlayingPath);
+                MusicPlayerService.PlayMusic(mediaElement, _songPlayingPath);
                 CallFunctions.UpdateFileDetail(Mp3FileDetail, _songPlayingPath);
                 this.slider.Value = 0;
                 this.progressBar.Value = 0;
@@ -307,7 +310,7 @@ namespace Audiara
         {
             if (_playlistIndex >= 0 && _playlistIndex < _playlistSongs.Count)
             {
-                PublicObjects.PlayMusic(mediaElement, _playlistSongs[_playlistIndex]);
+                MusicPlayerService.PlayMusic(mediaElement, _playlistSongs[_playlistIndex]);
                 string fileNameToGet = _playlistSongs[_playlistIndex];
                 _songPlayingPath = fileNameToGet;
                 CallFunctions.UpdateFileDetail(Mp3FileDetail, fileNameToGet);
