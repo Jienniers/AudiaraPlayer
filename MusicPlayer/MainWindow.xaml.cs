@@ -6,6 +6,7 @@ using System.IO;
 using MusicPlayer.Dialogs;
 using Microsoft.Web.WebView2.Wpf;
 using MusicPlayer.Classes;
+using MusicPlayer.Shared;
 using static MusicPlayer.Classes.PublicObjects;
 
 namespace MusicPlayer
@@ -82,7 +83,7 @@ namespace MusicPlayer
         {
             if (youtubeMusicPlaying)
             {
-                MessageBoxs.ErrorMessageBoxs.YoutubeMusicPlaying();
+                MessageBoxService.YoutubeMusicPlaying();
                 return;
             }
             if (playlistIndex < playlist_songs.Count)
@@ -130,7 +131,7 @@ namespace MusicPlayer
         {
             if (youtubeMusicPlaying)
             {
-                MessageBoxs.ErrorMessageBoxs.YoutubeMusicPlaying();
+                MessageBoxService.YoutubeMusicPlaying();
                 return;
             }
             var dialog = new Microsoft.Win32.OpenFileDialog
@@ -213,7 +214,7 @@ namespace MusicPlayer
         {
             if (youtubeMusicPlaying)
             {
-                MessageBoxs.ErrorMessageBoxs.YoutubeMusicPlaying();
+                MessageBoxService.YoutubeMusicPlaying();
             }
             else
             {
@@ -255,7 +256,7 @@ namespace MusicPlayer
         {
             if (songPlayingPath is null)
             {
-                PublicObjects.MessageBoxs.ErrorMessageBoxs.NoSongPlaying();
+                MessageBoxService.NoSongPlaying();
                 return;
             }
             FavJsonData = new Dictionary<string, string>
@@ -266,7 +267,7 @@ namespace MusicPlayer
             // Call the function to add data to the JSON file
             //PublicObjects.Jsons.AddDataToJsonFile(favouritesJson, FavJsonData);
 
-            PublicObjects.MessageBoxs.SuccessMessageBoxs.FavouriteAddedSuccess($"{Path.GetFileName(songPlayingPath)} has been added to favourites.");
+            MessageBoxService.ShowSuccess($"{Path.GetFileName(songPlayingPath)} has been added to favourites.");
         }
 
         private async void FavouriteButtonClick(object sender, RoutedEventArgs e)
@@ -335,7 +336,10 @@ namespace MusicPlayer
                 string fileNameToGet = playlist_songs[playlistIndex];
                 songPlayingPath = fileNameToGet;
                 CallFunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
-                if (!File.Exists(playlist_songs[playlistIndex])) PublicObjects.MessageBoxs.ErrorMessageBoxs.FileNotFound();
+                if (!File.Exists(playlist_songs[playlistIndex]))
+                {
+                    MessageBoxService.FileNotFound();
+                }
             }
         }
     }
