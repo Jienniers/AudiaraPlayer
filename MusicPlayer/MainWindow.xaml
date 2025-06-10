@@ -187,58 +187,7 @@
                         <TextBlock Text="Favourites" VerticalAlignment="Bottom" Margin="34,0,-34,-2"/>
                     </Grid>
                 </Button>
-               
-                <Button Margin="3,0,3,12" FontSize="30" Click="SettingButtonClick" Height="40" VerticalAlignment="Bottom">
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}" CornerRadius="5">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Icons/SideBar/settings.png" Width="46" Height="34"/>
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                    <Button.Style>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Background">
-                                <Setter.Value>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="#FF2196F3" Offset="0"/>
-                                        <GradientStop Color="#FF1976D2" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <!-- Hover Trigger -->
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background">
-                                        <Setter.Value>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                <GradientStop Color="#FF64B5F6" Offset="0"/>
-                                                <GradientStop Color="#FF1565C0" Offset="1"/>
-                                            </LinearGradientBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                                <!-- Click Trigger -->
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Background">
-                                        <Setter.Value>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                <GradientStop Color="#FF0D47A1" Offset="0"/>
-                                                <GradientStop Color="#FF1565C0" Offset="1"/>
-                                            </LinearGradientBrush>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Grid>
-                        <TextBlock Text="Settings" VerticalAlignment="Center" Margin="20,0,-20,0"/>
-                    </Grid>
-                </Button>
+              
             </Grid>
         </Border>
         <Grid Margin="260,483,0,0">
