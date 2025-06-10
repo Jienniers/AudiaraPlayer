@@ -285,36 +285,6 @@ namespace MusicPlayer
             favDialog.ShowDialog();
         }
 
-        private void YoutubeMusicButtonClick(object sender, RoutedEventArgs e)
-        {
-            CallFunctions callFunctions = new CallFunctions();
-            mediaElement.Stop();
-            callFunctions.InitializeWebView(webView);
-            try
-            {
-                if (!ytMusicOpened)
-                {
-                    if (!youtubeMusicPlaying) callFunctions.LoadWebPage("https://music.youtube.com/", webView);
-                    ytMusicGrid.Visibility = Visibility.Visible;
-                    ytMusicOpened = true;
-                    YoutubeMusicbtn.Content = "Close YT Music";
-                }
-                else
-                {
-                    //string keepplayingYoutubeMusic = PublicObjects.Jsons.GetValueFromJsonKey(settingsJson, keepPlayingYoutubeMusic);
-                    // youtubeMusicPlaying = (keepplayingYoutubeMusic == "true") ? true : false;
-                    // if (keepplayingYoutubeMusic == "false") webView.Source = new Uri("about:blank");
-                    // ytMusicGrid.Visibility = Visibility.Hidden;
-                    // ytMusicOpened = false;
-                    // YoutubeMusicbtn.Content = "Open YT Music";
-                }
-            }
-            catch (Exception ew)
-            {
-                throw ew;
-            }
-        }
-
         private void SettingButtonClick(object sender, RoutedEventArgs e)
         {
             Settings setting = new Settings();
