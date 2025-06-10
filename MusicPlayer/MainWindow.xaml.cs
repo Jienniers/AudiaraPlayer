@@ -1,12 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Threading;
 using System.IO;
-using System.Drawing.Imaging;
-using System.Windows.Documents;
-using System.Text.Json;
 using MusicPlayer.Dialogs;
 using Microsoft.Web.WebView2.Wpf;
 using MusicPlayer.Classes;
@@ -18,7 +14,6 @@ namespace MusicPlayer
     {
         private bool isDraggingSlider = false;
         private DispatcherTimer timer;
-        private DispatcherTimer timeTimer;
         private List<String> playlist_songs = PublicObjects.playlistSongs;
         private int playlistIndex = 0;
         internal bool isPlaying = false;
@@ -27,10 +22,6 @@ namespace MusicPlayer
         private bool ytMusicOpened = false;
         private bool maximized = false;
         public static bool youtubeMusicPlaying = false;
-
-        //Jsons File Paths
-        private string settingsJson = PublicObjects.Jsons.JsonFilePaths.settingsJsonFilePath;
-        private string favouritesJson = PublicObjects.Jsons.JsonFilePaths.favouriteJsonFilePath;
 
         //keys from settings json
         string keepPlayingYoutubeMusic = PublicObjects.Jsons.SettingsJsonFileKeys.keepPlayingKeyJson;
@@ -66,7 +57,6 @@ namespace MusicPlayer
             mediaElement.MediaOpened += MediaElement_MediaOpened;
             this.mediaElement.MediaEnded += MediaElement_MediaEnded;
             this.timer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), DispatcherPriority.Input, Timer_Tick, this.Dispatcher);
-            this.timeTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), DispatcherPriority.Input, Time_Timer_Tick, this.Dispatcher);
         }
 
         internal class CallFunctions()
@@ -81,30 +71,6 @@ namespace MusicPlayer
             {
                 webView.Source = new Uri(url);
             }
-
-            //internal void AddDataToJsonFile(string filePath, Dictionary<string, string> newData)
-            //{
-            //    string directoryPath = Path.GetDirectoryName(filePath);
-            //    if (!Directory.Exists(directoryPath))
-            //    {
-            //        Directory.CreateDirectory(directoryPath);
-            //    }
-            //    Dictionary<string, string> existingData = new Dictionary<string, string>();
-            //    if (File.Exists(filePath))
-            //    {
-            //        string existingJson = File.ReadAllText(filePath);
-            //        existingData = JsonSerializer.Deserialize<Dictionary<string, string>>(existingJson);
-            //    }
-            //    foreach (var entry in newData)
-            //    {
-            //        if (!existingData.ContainsKey(entry.Key))
-            //        {
-            //            existingData.Add(entry.Key, entry.Value);
-            //        }
-            //    }
-            //    string jsonString = JsonSerializer.Serialize(existingData, new JsonSerializerOptions { WriteIndented = true });
-            //    File.WriteAllText(filePath, jsonString);
-            //}
 
             internal static void updateFileDetail(TextBlock Mp3FileDetail, string FilePath)
             {
@@ -308,7 +274,7 @@ namespace MusicPlayer
         };
 
             // Call the function to add data to the JSON file
-            PublicObjects.Jsons.AddDataToJsonFile(favouritesJson, FavJsonData);
+            //PublicObjects.Jsons.AddDataToJsonFile(favouritesJson, FavJsonData);
 
             PublicObjects.MessageBoxs.SuccessMessageBoxs.FavouriteAddedSuccess($"{Path.GetFileName(songPlayingPath)} has been added to favourites.");
         }
@@ -335,12 +301,12 @@ namespace MusicPlayer
                 }
                 else
                 {
-                    string keepplayingYoutubeMusic = PublicObjects.Jsons.GetValueFromJsonKey(settingsJson, keepPlayingYoutubeMusic);
-                    youtubeMusicPlaying = (keepplayingYoutubeMusic == "true") ? true : false;
-                    if (keepplayingYoutubeMusic == "false") webView.Source = new Uri("about:blank");
-                    ytMusicGrid.Visibility = Visibility.Hidden;
-                    ytMusicOpened = false;
-                    YoutubeMusicbtn.Content = "Open YT Music";
+                    //string keepplayingYoutubeMusic = PublicObjects.Jsons.GetValueFromJsonKey(settingsJson, keepPlayingYoutubeMusic);
+                    // youtubeMusicPlaying = (keepplayingYoutubeMusic == "true") ? true : false;
+                    // if (keepplayingYoutubeMusic == "false") webView.Source = new Uri("about:blank");
+                    // ytMusicGrid.Visibility = Visibility.Hidden;
+                    // ytMusicOpened = false;
+                    // YoutubeMusicbtn.Content = "Open YT Music";
                 }
             }
             catch (Exception ew)
@@ -417,20 +383,6 @@ namespace MusicPlayer
                 CallFunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
                 if (!File.Exists(playlist_songs[playlistIndex])) PublicObjects.MessageBoxs.ErrorMessageBoxs.FileNotFound();
             }
-        }
-
-        private void Time_Timer_Tick(object sender, EventArgs e)
-        {
-            string showTimeSettingsJsonValue = PublicObjects.Jsons.GetValueFromJsonKey(settingsJson, PublicObjects.Jsons.SettingsJsonFileKeys.showTimeKeyJson);
-            string timeFormatSettingsJsonValue = PublicObjects.Jsons.GetValueFromJsonKey(settingsJson, PublicObjects.Jsons.SettingsJsonFileKeys.timeFormatKeyJson);
-            
-            bool is12HourFormat = (timeFormatSettingsJsonValue == "12");
-            bool showTimeSettings = (showTimeSettingsJsonValue == "true");
-
-            DateTime currentTime = DateTime.Now;
-            string formattedTime = PublicObjects.timeFormat(currentTime, (is12HourFormat) ? "12" : "24");
-            TimeLabel.Content = (showTimeSettings) ? formattedTime : string.Empty;
-            timeTimer.Start();
         }
     }
 }
