@@ -62,16 +62,6 @@ namespace MusicPlayer
         internal class CallFunctions()
         {
 
-            internal async void InitializeWebView(WebView2 webView)
-            {
-                await webView.EnsureCoreWebView2Async(null);
-            }
-
-            internal void LoadWebPage(string url, WebView2 webView)
-            {
-                webView.Source = new Uri(url);
-            }
-
             internal static void updateFileDetail(TextBlock Mp3FileDetail, string FilePath)
             {
                 Mp3FileDetail.Text = "File: " + Path.GetFileName(FilePath);
