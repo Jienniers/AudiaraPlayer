@@ -63,55 +63,5 @@ namespace Audiara.Classes
                 public static readonly string favouriteJsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audiara/Data/Favourites.json");
             }
         }
-
-        public class ListBoxs
-        {
-            public static void AddItemToListBox(ListBox listBox, string itemName, string itemDescription)
-            {
-                StackPanel stackPanel = new StackPanel();
-                stackPanel.Orientation = Orientation.Horizontal;
-
-                TextBlock textBlockName = new TextBlock();
-                textBlockName.Text = itemName;
-                textBlockName.Margin = new Thickness(5);
-
-                TextBlock textBlockDescription = new TextBlock();
-                textBlockDescription.Text = itemDescription;
-                textBlockDescription.Margin = new Thickness(5);
-
-
-                stackPanel.Children.Add(textBlockName);
-                stackPanel.Children.Add(textBlockDescription);
-
-                ListBoxItem listBoxItem = new ListBoxItem();
-                listBoxItem.Content = stackPanel;
-                listBoxItem.Tag = itemDescription;
-
-                listBox.Items.Add(listBoxItem);
-            }
-
-            public static void RemoveItemFromListBox(ListBox listbox, string keyToRemove)
-            {
-                var itemsToRemove = new List<ListBoxItem>();
-                foreach (var item in listbox.Items.OfType<ListBoxItem>())
-                {
-                    if (item.Content is StackPanel stackPanel)
-                    {
-                        foreach (var child in stackPanel.Children)
-                        {
-                            if (child is TextBlock textBlock && textBlock.Text == keyToRemove)
-                            {
-                                itemsToRemove.Add(item);
-                                break;
-                            }
-                        }
-                    }
-                }
-                foreach (var itemToRemove in itemsToRemove)
-                {
-                    listbox.Items.Remove(itemToRemove);
-                }
-            }
-        }
     }
 }
