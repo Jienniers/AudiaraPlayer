@@ -58,17 +58,14 @@ namespace Audiara
 
         private void RemoveKeyAndUpdateFile(string filePath, string keyToRemove)
         {
-            // Check if the key exists in the dictionary
             if (FavSongsList.ContainsKey(keyToRemove))
             {
-                // Remove the key from the dictionary
                 FavSongsList.Remove(keyToRemove);
 
                 // Update the JSON file with the modified dictionary
                 string json = JsonSerializer.Serialize(FavSongsList, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(filePath, json);
-
-                // Remove the corresponding item from the ListBox
+                
                 ListBoxHelper.RemoveItem(SongsFavsListBox, keyToRemove);
             }
             else
@@ -96,23 +93,19 @@ namespace Audiara
         private void refreshListBox()
         {
             
-            // Check if the file exists
             if (File.Exists(jsonPath))
             {
-                // Read the JSON data from the file
                 string json = File.ReadAllText(jsonPath);
-
+                
                 // Deserialize the JSON string into a dictionary
                 Dictionary<string, string> data = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
-
-                // Check if the dictionary is not null
+                
                 if (data != null)
                 {
-                    // Iterate through keys and print them
                     foreach (string key in data.Keys)
                     {
                         CountnumFav++;
-                        // Check if the key already exists in the dictionary
+                        
                         if (!FavSongsList.ContainsKey(key))
                         {
                             ListBoxHelper.AddItem(SongsFavsListBox, CountnumFav.ToString(), key);
