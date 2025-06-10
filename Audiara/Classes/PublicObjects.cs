@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Audiara.Shared;
@@ -72,13 +67,7 @@ namespace Audiara.Classes
 
             public class JsonFilePaths
             {
-                public static readonly string settingsJsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audiara/Data/Settings.json");
                 public static readonly string favouriteJsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Audiara/Data/Favourites.json");
-            }
-
-            public class SettingsJsonFileKeys
-            {
-                public static readonly string keepPlayingKeyJson = "YTMusicKeepPlaying";
             }
         }
 
@@ -87,7 +76,7 @@ namespace Audiara.Classes
             public static void AddItemToListBox(ListBox listBox, string itemName, string itemDescription)
             {
                 StackPanel stackPanel = new StackPanel();
-                stackPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
+                stackPanel.Orientation = Orientation.Horizontal;
 
                 TextBlock textBlockName = new TextBlock();
                 textBlockName.Text = itemName;

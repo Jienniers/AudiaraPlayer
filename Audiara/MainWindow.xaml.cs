@@ -24,9 +24,6 @@ namespace Audiara
         private bool maximized = false;
         public static bool youtubeMusicPlaying = false;
 
-        //keys from settings json
-        string keepPlayingYoutubeMusic = PublicObjects.Jsons.SettingsJsonFileKeys.keepPlayingKeyJson;
-
 
         public MainWindow()
         {
