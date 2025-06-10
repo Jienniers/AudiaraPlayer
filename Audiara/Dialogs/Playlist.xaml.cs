@@ -25,7 +25,7 @@ namespace Audiara
             this._mainWindow = mainWindow;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddFileButton(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog
             {

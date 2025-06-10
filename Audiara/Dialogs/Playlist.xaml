@@ -16,7 +16,7 @@
             </Grid.ColumnDefinitions>
             <ListBox x:Name="SongsPlaylist" BorderThickness="0" Background="#424F64" Foreground="White" HorizontalAlignment="Center" Height="278" Margin="0,1,0,0" VerticalAlignment="Top" Width="600" d:ItemsSource="{d:SampleData ItemCount=1}"/>
         </Grid>
-        <Button Content="Add File" Margin="495,6,2,0" FontSize="24" Click="Button_Click" Height="47" VerticalAlignment="Top">
+        <Button Content="Add File" Margin="495,6,2,0" FontSize="24" Click="AddFileButton" Height="47" VerticalAlignment="Top">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" CornerRadius="5">
