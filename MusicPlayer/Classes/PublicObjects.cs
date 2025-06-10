@@ -12,18 +12,6 @@ namespace MusicPlayer.Classes
 {
     public class PublicObjects
     {
-        public static string timeFormat(DateTime currentTime, string formatPerameter)
-        {
-            if (formatPerameter == "12")
-            {
-                return currentTime.ToString("h:mm tt");
-            }
-            else
-            {
-                return currentTime.ToString("HH:mm:ss");
-            }
-            
-        }
 
         public static List<String> playlistSongs = new List<String>();
 
@@ -89,8 +77,6 @@ namespace MusicPlayer.Classes
 
             public class SettingsJsonFileKeys
             {
-                public static readonly string showTimeKeyJson = "ShowTime";
-                public static readonly string timeFormatKeyJson = "TimeFormat";
                 public static readonly string keepPlayingKeyJson = "YTMusicKeepPlaying";
             }
         }
