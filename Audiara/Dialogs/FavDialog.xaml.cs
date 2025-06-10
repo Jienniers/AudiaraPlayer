@@ -13,39 +13,39 @@ namespace Audiara
     public partial class FavDialog : Window
     {
 
-        private int CountnumFav = 0;
-        private Dictionary<String, String> FavSongsList = new Dictionary<string, string>();
-        string jsonPath = PublicObjects.Jsons.JsonFilePaths.favouriteJsonFilePath;
+        private int _countnumFav = 0;
+        private Dictionary<String, String> _favSongsList = new Dictionary<string, string>();
+        readonly string _jsonPath = PublicObjects.Jsons.JsonFilePaths.favouriteJsonFilePath;
         public FavDialog()
         {
             InitializeComponent();
-            startup();
+            Startup();
         }
 
-        private void startup()
+        private void Startup()
         {
-            refreshListBox();
-            verifyFile();
+            RefreshListBox();
+            VerifyFile();
         }
 
-        private void verifyFile()
+        private void VerifyFile()
         {
             bool errorDisplayed = false;
             try
             {
-                foreach (var value in FavSongsList.Values)
+                foreach (var value in _favSongsList.Values)
                 {
                     if (!File.Exists(value))
                     {
-                        if (!errorDisplayed) MessageBox.Show($"{PublicObjects.Jsons.GetValueFromJsonKey(jsonPath, value)} was removed because it was not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        if (!errorDisplayed) MessageBox.Show($"{PublicObjects.Jsons.GetValueFromJsonKey(_jsonPath, value)} was removed because it was not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         errorDisplayed = true;
-                        RemoveKeyAndUpdateFile(jsonPath, PublicObjects.Jsons.GetValueFromJsonKey(jsonPath, value));
+                        RemoveKeyAndUpdateFile(_jsonPath, PublicObjects.Jsons.GetValueFromJsonKey(_jsonPath, value));
                         SongsFavsListBox.Items.Clear();
-                        CountnumFav = 0;
-                        foreach (string items in FavSongsList.Keys)
+                        _countnumFav = 0;
+                        foreach (string items in _favSongsList.Keys)
                         {
-                            CountnumFav++;
-                            ListBoxHelper.AddItem(SongsFavsListBox, CountnumFav.ToString(), items);
+                            _countnumFav++;
+                            ListBoxHelper.AddItem(SongsFavsListBox, _countnumFav.ToString(), items);
                         }
                     }
                 }
@@ -58,12 +58,12 @@ namespace Audiara
 
         private void RemoveKeyAndUpdateFile(string filePath, string keyToRemove)
         {
-            if (FavSongsList.ContainsKey(keyToRemove))
+            if (_favSongsList.ContainsKey(keyToRemove))
             {
-                FavSongsList.Remove(keyToRemove);
+                _favSongsList.Remove(keyToRemove);
 
                 // Update the JSON file with the modified dictionary
-                string json = JsonSerializer.Serialize(FavSongsList, new JsonSerializerOptions { WriteIndented = true });
+                string json = JsonSerializer.Serialize(_favSongsList, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(filePath, json);
                 
                 ListBoxHelper.RemoveItem(SongsFavsListBox, keyToRemove);
@@ -90,12 +90,12 @@ namespace Audiara
             return string.Empty;
         }
 
-        private void refreshListBox()
+        private void RefreshListBox()
         {
             
-            if (File.Exists(jsonPath))
+            if (File.Exists(_jsonPath))
             {
-                string json = File.ReadAllText(jsonPath);
+                string json = File.ReadAllText(_jsonPath);
                 
                 // Deserialize the JSON string into a dictionary
                 Dictionary<string, string> data = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
@@ -104,12 +104,12 @@ namespace Audiara
                 {
                     foreach (string key in data.Keys)
                     {
-                        CountnumFav++;
+                        _countnumFav++;
                         
-                        if (!FavSongsList.ContainsKey(key))
+                        if (!_favSongsList.ContainsKey(key))
                         {
-                            ListBoxHelper.AddItem(SongsFavsListBox, CountnumFav.ToString(), key);
-                            FavSongsList.Add(key, data[key]);
+                            ListBoxHelper.AddItem(SongsFavsListBox, _countnumFav.ToString(), key);
+                            _favSongsList.Add(key, data[key]);
                         }
                         else
                         {
@@ -131,13 +131,13 @@ namespace Audiara
 
         private void RemoveFav(object sender, RoutedEventArgs e)
         {
-            RemoveKeyAndUpdateFile(jsonPath, GetSelectedDescription());
+            RemoveKeyAndUpdateFile(_jsonPath, GetSelectedDescription());
             SongsFavsListBox.Items.Clear();
-            CountnumFav = 0;
-            foreach (string items in FavSongsList.Keys)
+            _countnumFav = 0;
+            foreach (string items in _favSongsList.Keys)
             {
-                CountnumFav++;
-                ListBoxHelper.AddItem(SongsFavsListBox, CountnumFav.ToString(), items);
+                _countnumFav++;
+                ListBoxHelper.AddItem(SongsFavsListBox, _countnumFav.ToString(), items);
             }
         }
 
@@ -145,22 +145,22 @@ namespace Audiara
         {
             if (Application.Current.MainWindow is MainWindow mainWindow)
             {
-                if (!File.Exists(FavSongsList[GetSelectedDescription()]))
+                if (!File.Exists(_favSongsList[GetSelectedDescription()]))
                 {
                     MessageBox.Show("Music File wasnt found, Removing it.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    RemoveKeyAndUpdateFile(jsonPath, PublicObjects.Jsons.GetValueFromJsonKey(jsonPath, FavSongsList[GetSelectedDescription()]));
+                    RemoveKeyAndUpdateFile(_jsonPath, PublicObjects.Jsons.GetValueFromJsonKey(_jsonPath, _favSongsList[GetSelectedDescription()]));
                     SongsFavsListBox.Items.Clear();
-                    CountnumFav = 0;
-                    foreach (string items in FavSongsList.Keys)
+                    _countnumFav = 0;
+                    foreach (string items in _favSongsList.Keys)
                     {
-                        CountnumFav++;
-                        ListBoxHelper.AddItem(SongsFavsListBox, CountnumFav.ToString(), items);
+                        _countnumFav++;
+                        ListBoxHelper.AddItem(SongsFavsListBox, _countnumFav.ToString(), items);
                     }
                     return;
                 }
                 if (GetSelectedDescription() != string.Empty)
                 {
-                    mainWindow.FavPlaySong(FavSongsList[GetSelectedDescription()]);
+                    mainWindow.FavPlaySong(_favSongsList[GetSelectedDescription()]);
                     Close();
                 }
                 else
