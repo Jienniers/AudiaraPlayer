@@ -1,26 +1,24 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
-using System.IO;
 using Audiara.Classes;
 using Audiara.Shared;
-using Audiara.Dialogs;
-using Microsoft.Web.WebView2.Wpf;
-using static Audiara.Classes.PublicObjects;
+using Microsoft.Win32;
 
 namespace Audiara
 {
     public partial class MainWindow : Window
     {
-        private bool isDraggingSlider = false;
-        private DispatcherTimer timer;
-        private List<String> playlist_songs = PublicObjects.playlistSongs;
-        private int playlistIndex = 0;
-        internal bool isPlaying = false;
-        private string songPlayingPath;
-        private Dictionary<string, string> FavJsonData = new Dictionary<string, string>();
-        private bool maximized = false;
+        private bool _isDraggingSlider = false;
+        private DispatcherTimer _timer;
+        private readonly  List<String> _playlistSongs = PublicObjects.playlistSongs;
+        private int _playlistIndex = 0;
+        internal bool IsPlaying = false;
+        private string _songPlayingPath;
+        private Dictionary<string, string> _favJsonData = new Dictionary<string, string>();
+        private bool _maximized = false;
         
         public MainWindow()
         {
@@ -38,11 +36,11 @@ namespace Audiara
                 string filePath = args[1];
                 mediaElement.Source = new Uri(filePath, UriKind.RelativeOrAbsolute);
                 mediaElement.Play();
-                songPlayingPath = filePath;
-                CallFunctions.updateFileDetail(Mp3FileDetail,filePath);
+                _songPlayingPath = filePath;
+                CallFunctions.UpdateFileDetail(Mp3FileDetail,filePath);
                 slider.Value = 0;
                 progressBar.Value = 0;
-                isPlaying = true;
+                IsPlaying = true;
             }
         }
 
@@ -51,18 +49,18 @@ namespace Audiara
             mediaElement.LoadedBehavior = MediaState.Manual;
             mediaElement.MediaOpened += MediaElement_MediaOpened;
             this.mediaElement.MediaEnded += MediaElement_MediaEnded;
-            this.timer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), DispatcherPriority.Input, Timer_Tick, this.Dispatcher);
+            this._timer = new DispatcherTimer(TimeSpan.FromMilliseconds(100), DispatcherPriority.Input, Timer_Tick, this.Dispatcher);
         }
 
         internal class CallFunctions()
         {
 
-            internal static void updateFileDetail(TextBlock Mp3FileDetail, string FilePath)
+            internal static void UpdateFileDetail(TextBlock mp3FileDetail, string filePath)
             {
-                Mp3FileDetail.Text = "File: " + Path.GetFileName(FilePath);
+                mp3FileDetail.Text = "File: " + Path.GetFileName(filePath);
             }
 
-            internal static void displayDuration(double currentPosition, Label startDuration)
+            internal static void DisplayDuration(double currentPosition, Label startDuration)
             {
                 int totalSeconds = (int)currentPosition;
                 int hours = totalSeconds / 3600;
@@ -75,18 +73,18 @@ namespace Audiara
 
         public void PlayNextSong()
         {
-            if (playlistIndex < playlist_songs.Count)
+            if (_playlistIndex < _playlistSongs.Count)
             {
-                playlistIndex++;
-                string fileNameToGet = playlist_songs[playlistIndex];
+                _playlistIndex++;
+                string fileNameToGet = _playlistSongs[_playlistIndex];
                 PublicObjects.PlayMusic(mediaElement, fileNameToGet);
-                CallFunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
-                songPlayingPath = fileNameToGet;
-                isPlaying = true;
+                CallFunctions.UpdateFileDetail(Mp3FileDetail, fileNameToGet);
+                _songPlayingPath = fileNameToGet;
+                IsPlaying = true;
             }
             else
             {
-                isPlaying = false;
+                IsPlaying = false;
                 mediaElement.Stop();
             }
         }
@@ -94,11 +92,11 @@ namespace Audiara
         public void FavPlaySong(string filepath)
         {
             PublicObjects.PlayMusic(mediaElement, filepath);
-            songPlayingPath = filepath;
-            CallFunctions.updateFileDetail(Mp3FileDetail, filepath);
+            _songPlayingPath = filepath;
+            CallFunctions.UpdateFileDetail(Mp3FileDetail, filepath);
             this.slider.Value = 0;
             this.progressBar.Value = 0;
-            isPlaying = true;
+            IsPlaying = true;
         }
 
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -118,7 +116,7 @@ namespace Audiara
 
         private void PlayButton(object sender, RoutedEventArgs e)
         {
-            var dialog = new Microsoft.Win32.OpenFileDialog
+            var dialog = new OpenFileDialog
             {
                 FileName = "Music",
                 DefaultExt = ".mp3",
@@ -127,12 +125,12 @@ namespace Audiara
             bool? result = dialog.ShowDialog();
             if (result == true)
             {
-                songPlayingPath = dialog.FileName;
-                PublicObjects.PlayMusic(mediaElement, songPlayingPath);
-                CallFunctions.updateFileDetail(Mp3FileDetail, songPlayingPath);
+                _songPlayingPath = dialog.FileName;
+                PublicObjects.PlayMusic(mediaElement, _songPlayingPath);
+                CallFunctions.UpdateFileDetail(Mp3FileDetail, _songPlayingPath);
                 this.slider.Value = 0;
                 this.progressBar.Value = 0;
-                isPlaying = true;
+                IsPlaying = true;
             }
         }
 
@@ -142,16 +140,16 @@ namespace Audiara
             {
                 this.slider.Maximum = this.mediaElement.NaturalDuration.TimeSpan.TotalSeconds;
                 this.slider.Value = 0;
-                this.timer.Start();
+                this._timer.Start();
             }
         }
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
-            this.timer.Stop();
+            this._timer.Stop();
             this.slider.Value = 0;
             this.progressBar.Value = 0;
-            if (isPlaying) isPlaying = false;
+            if (IsPlaying) IsPlaying = false;
             Mp3FileDetail.Text = "";
             startDuration.Content = "00:00:00";
             totalDuration.Content = "00:00:00";
@@ -160,16 +158,16 @@ namespace Audiara
           
         }
 
-        private async void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object? sender, EventArgs e)
         {
             double currentPosition = this.mediaElement.Position.TotalSeconds;
             Dispatcher.Invoke(() =>
             {
-                if (!this.isDraggingSlider) this.slider.Value = currentPosition;
+                if (!this._isDraggingSlider) this.slider.Value = currentPosition;
 
-                if (isPlaying)
+                if (IsPlaying)
                 {
-                    CallFunctions.displayDuration(currentPosition, startDuration);
+                    CallFunctions.DisplayDuration(currentPosition, startDuration);
                     totalDuration.Content = mediaElement.NaturalDuration.ToString();
                 }
             });
@@ -177,16 +175,16 @@ namespace Audiara
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (!this.isDraggingSlider) this.mediaElement.Position = TimeSpan.FromSeconds(slider.Value);
+            if (!this._isDraggingSlider) this.mediaElement.Position = TimeSpan.FromSeconds(slider.Value);
 
-            if (!timer.IsEnabled) timer.Start();
+            if (!_timer.IsEnabled) _timer.Start();
         }
 
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            this.timer.Stop();
-            this.timer.Tick -= Timer_Tick;
+            this._timer.Stop();
+            this._timer.Tick -= Timer_Tick;
         }
 
         private void PauseButtonClick(object sender, RoutedEventArgs e)
@@ -231,23 +229,23 @@ namespace Audiara
 
         private void FavouriteSongButtonClick(object sender, RoutedEventArgs e)
         {
-            if (songPlayingPath is null)
-            {
-                MessageBoxService.NoSongPlaying();
-                return;
-            }
-            FavJsonData = new Dictionary<string, string>
+            // if (_songPlayingPath is null)
+            // {
+            //     MessageBoxService.NoSongPlaying();
+            //     return;
+            // }
+            _favJsonData = new Dictionary<string, string>
         {
-            { Path.GetFileName(songPlayingPath), songPlayingPath },
+            { Path.GetFileName(_songPlayingPath), _songPlayingPath },
         };
 
             // Call the function to add data to the JSON file
             //PublicObjects.Jsons.AddDataToJsonFile(favouritesJson, FavJsonData);
 
-            MessageBoxService.ShowSuccess($"{Path.GetFileName(songPlayingPath)} has been added to favourites.");
+            MessageBoxService.ShowSuccess($"{Path.GetFileName(_songPlayingPath)} has been added to favourites.");
         }
 
-        private async void FavouriteButtonClick(object sender, RoutedEventArgs e)
+        private void FavouriteButtonClick(object sender, RoutedEventArgs e)
         {
             FavDialog favDialog = new FavDialog();
             favDialog.ShowDialog();
@@ -255,65 +253,65 @@ namespace Audiara
 
         private void MaximizeButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!maximized)
+            if (!_maximized)
             {
                 MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
                 MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
                 WindowState = WindowState.Maximized;
-                maximized = true;
+                _maximized = true;
             }
             else
             {
                 WindowState = WindowState.Normal;
-                maximized = false;
+                _maximized = false;
             }
         }
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
-            if (e.Property == Window.WindowStateProperty && (WindowState)e.NewValue != WindowState.Minimized && (WindowState)e.NewValue != WindowState.Normal)
+            if (e.Property == WindowStateProperty && (WindowState)e.NewValue != WindowState.Minimized && (WindowState)e.NewValue != WindowState.Normal)
             {
-                if (!maximized)
+                if (!_maximized)
                 {
                     MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
                     MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
                     WindowState = WindowState.Maximized;
-                    maximized = true;
+                    _maximized = true;
                 }
                 else
                 {
                     WindowState = WindowState.Normal;
-                    maximized = false;
+                    _maximized = false;
                 }
             }
         }
 
         private void PreviousSongButtonClick(object sender, RoutedEventArgs e)
         {
-            bool indexGreaterThan0 = (playlistIndex > 0);
-            _ = (indexGreaterThan0) ? playlistIndex-- : playlistIndex = playlist_songs.Count - 1;
+            bool indexGreaterThan0 = (_playlistIndex > 0);
+            _ = (indexGreaterThan0) ? _playlistIndex-- : _playlistIndex = _playlistSongs.Count - 1;
 
             PlayCurrentSong();
         }
 
         private void NextSongButtonClick(object sender, RoutedEventArgs e)
         {
-            bool indexLessThanList = (playlistIndex < playlist_songs.Count - 1);
-            _ = (indexLessThanList) ? playlistIndex++ : playlistIndex = 0;
+            bool indexLessThanList = (_playlistIndex < _playlistSongs.Count - 1);
+            _ = (indexLessThanList) ? _playlistIndex++ : _playlistIndex = 0;
 
             PlayCurrentSong();
         }
 
         private void PlayCurrentSong()
         {
-            if (playlistIndex >= 0 && playlistIndex < playlist_songs.Count)
+            if (_playlistIndex >= 0 && _playlistIndex < _playlistSongs.Count)
             {
-                PublicObjects.PlayMusic(mediaElement, playlist_songs[playlistIndex]);
-                string fileNameToGet = playlist_songs[playlistIndex];
-                songPlayingPath = fileNameToGet;
-                CallFunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
-                if (!File.Exists(playlist_songs[playlistIndex]))
+                PublicObjects.PlayMusic(mediaElement, _playlistSongs[_playlistIndex]);
+                string fileNameToGet = _playlistSongs[_playlistIndex];
+                _songPlayingPath = fileNameToGet;
+                CallFunctions.UpdateFileDetail(Mp3FileDetail, fileNameToGet);
+                if (!File.Exists(_playlistSongs[_playlistIndex]))
                 {
                     MessageBoxService.FileNotFound();
                 }
