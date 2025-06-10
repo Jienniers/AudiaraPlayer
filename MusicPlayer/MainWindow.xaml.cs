@@ -285,12 +285,6 @@ namespace MusicPlayer
             favDialog.ShowDialog();
         }
 
-        private void SettingButtonClick(object sender, RoutedEventArgs e)
-        {
-            Settings setting = new Settings();
-            setting.ShowDialog();
-        }
-
         private void MaximizeButtonClick(object sender, RoutedEventArgs e)
         {
             if (!maximized)
