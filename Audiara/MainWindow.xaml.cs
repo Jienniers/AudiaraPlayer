@@ -233,21 +233,25 @@ namespace Audiara
 
         private void FavouriteSongButtonClick(object sender, RoutedEventArgs e)
         {
-            // if (_songPlayingPath is null)
-            // {
-            //     MessageBoxService.NoSongPlaying();
-            //     return;
-            // }
-            _favJsonData = new Dictionary<string, string>
-        {
-            { Path.GetFileName(_songPlayingPath), _songPlayingPath },
-        };
+            if (string.IsNullOrEmpty(_songPlayingPath))
+            {
+                MessageBoxService.NoSongPlaying();
+                return;
+            }
 
-            // Call the function to add data to the JSON file
-            //PublicObjects.Jsons.AddDataToJsonFile(favouritesJson, FavJsonData);
+            string fileName = Path.GetFileName(_songPlayingPath);
 
-            MessageBoxService.ShowSuccess($"{Path.GetFileName(_songPlayingPath)} has been added to favourites.");
+            if (!MainWindow._favJsonData.ContainsKey(fileName))
+            {
+                MainWindow._favJsonData.Add(fileName, _songPlayingPath);
+                MessageBoxService.ShowSuccess($"{fileName} has been added to favourites.");
+            }
+            else
+            {
+                MessageBoxService.ShowError($"{fileName} is already in favourites.");
+            }
         }
+
 
         private void FavouriteButtonClick(object sender, RoutedEventArgs e)
         {
