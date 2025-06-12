@@ -10,7 +10,7 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button Content="Play" Margin="4,6,425,0" FontSize="36" Click="PlayFav" Height="51" VerticalAlignment="Top">
+        <Button Content="Play" Margin="4,6,425,0" FontSize="36" Click="PlaySelectedFavorite" Height="51" VerticalAlignment="Top">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -55,7 +55,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button Content="Remove" Margin="420,7,9,0" FontSize="36" Height="51" VerticalAlignment="Top" Click="RemoveFav">
+        <Button Content="Remove" Margin="420,7,9,0" FontSize="36" Height="51" VerticalAlignment="Top" Click="RemoveSelectedFavorite">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -100,6 +100,6 @@
                 </Style>
             </Button.Style>
         </Button>
-        <ListBox x:Name="SongsFavsListBox" BorderThickness="0" Background="#424F64" Foreground="White" HorizontalAlignment="Center" Height="276" Margin="0,67,0,0" VerticalAlignment="Top" Width="594" d:ItemsSource="{d:SampleData ItemCount=1}"/>
+        <ListBox x:Name="FavoritesListBox" BorderThickness="0" Background="#424F64" Foreground="White" HorizontalAlignment="Center" Height="276" Margin="0,67,0,0" VerticalAlignment="Top" Width="594" d:ItemsSource="{d:SampleData ItemCount=1}"/>
     </Grid>
 </Window>

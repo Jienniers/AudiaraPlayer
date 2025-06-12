@@ -7,8 +7,8 @@ namespace Audiara
 {
     public partial class FavDialog : Window
     {
-        private int _countnumFav = 0;
-        private Dictionary<string, string> FavSongsList => MainWindow.FavoriteSongs; // Refer to static memory
+        private int _favoriteSongCount = 0;
+        private Dictionary<string, string> _favoriteSongs => MainWindow.FavoriteSongs; // Refer to static memory
 
         public FavDialog()
         {
@@ -21,7 +21,7 @@ namespace Audiara
         {
             List<string> toRemove = new List<string>();
 
-            foreach (var kv in FavSongsList)
+            foreach (var kv in _favoriteSongs)
             {
                 if (!File.Exists(kv.Value))
                 {
@@ -32,7 +32,7 @@ namespace Audiara
 
             foreach (var key in toRemove)
             {
-                FavSongsList.Remove(key);
+                _favoriteSongs.Remove(key);
             }
 
             RefreshListBox();
@@ -40,41 +40,41 @@ namespace Audiara
 
         private void RefreshListBox()
         {
-            SongsFavsListBox.Items.Clear();
-            _countnumFav = 0;
+            FavoritesListBox.Items.Clear();
+            _favoriteSongCount = 0;
 
-            foreach (var kv in FavSongsList)
+            foreach (var kv in _favoriteSongs)
             {
-                _countnumFav++;
-                ListBoxHelper.AddItem(SongsFavsListBox, _countnumFav.ToString(), kv.Key);
+                _favoriteSongCount++;
+                ListBoxHelper.AddItem(FavoritesListBox, _favoriteSongCount.ToString(), kv.Key);
             }
         }
 
-        private void RemoveFav(object sender, RoutedEventArgs e)
+        private void RemoveSelectedFavorite(object sender, RoutedEventArgs e)
         {
-            string selected = GetSelectedDescription();
+            string selected = GetSelectedFavoriteTitle();
 
-            if (!string.IsNullOrEmpty(selected) && FavSongsList.ContainsKey(selected))
+            if (!string.IsNullOrEmpty(selected) && _favoriteSongs.ContainsKey(selected))
             {
-                FavSongsList.Remove(selected);
+                _favoriteSongs.Remove(selected);
                 RefreshListBox();
             }
         }
 
-        private void PlayFav(object sender, RoutedEventArgs e)
+        private void PlaySelectedFavorite(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is MainWindow mainWindow)
             {
-                string selected = GetSelectedDescription();
+                string selected = GetSelectedFavoriteTitle();
 
-                if (!string.IsNullOrEmpty(selected) && FavSongsList.ContainsKey(selected))
+                if (!string.IsNullOrEmpty(selected) && _favoriteSongs.ContainsKey(selected))
                 {
-                    string path = FavSongsList[selected];
+                    string path = _favoriteSongs[selected];
 
                     if (!File.Exists(path))
                     {
                         MessageBox.Show("Music File wasn't found. Removing it.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        FavSongsList.Remove(selected);
+                        _favoriteSongs.Remove(selected);
                         RefreshListBox();
                         return;
                     }
@@ -89,9 +89,9 @@ namespace Audiara
             }
         }
 
-        private string GetSelectedDescription()
+        private string GetSelectedFavoriteTitle()
         {
-            if (SongsFavsListBox.SelectedItem is ListBoxItem selectedListBoxItem)
+            if (FavoritesListBox.SelectedItem is ListBoxItem selectedListBoxItem)
             {
                 if (selectedListBoxItem.Content is StackPanel stackPanel &&
                     stackPanel.Children.Count > 1 &&
