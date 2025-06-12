@@ -1,6 +1,14 @@
 # Music Player
 A Music Player with Different Functionalities, Check Out
 
+---
+
+🚧 **Work in Progress** 🚧
+
+This project is currently under active development.  
+Expect frequent changes, incomplete features, outdated Readme and possibly broken stuff 😅  
+
+---
 
 ## Features
 
