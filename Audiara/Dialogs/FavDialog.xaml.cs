@@ -8,7 +8,7 @@ namespace Audiara
     public partial class FavDialog : Window
     {
         private int _countnumFav = 0;
-        private Dictionary<string, string> _favSongsList => MainWindow._favJsonData; // Refer to static memory
+        private Dictionary<string, string> _favSongsList => MainWindow.FavoriteSongs; // Refer to static memory
 
         public FavDialog()
         {
@@ -79,7 +79,7 @@ namespace Audiara
                         return;
                     }
 
-                    mainWindow.FavPlaySong(path);
+                    mainWindow.PlaySongFromFavorites(path);
                     Close();
                 }
                 else

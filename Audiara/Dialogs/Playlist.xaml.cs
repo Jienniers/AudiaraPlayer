@@ -81,16 +81,16 @@ namespace Audiara
                 int selectedIndex = MainWindow.PlaylistSongs.IndexOf(selectedFullPath);
                 if (selectedIndex != -1)
                 {
-                    _mainWindow._playlistIndex = selectedIndex;
+                    _mainWindow.CurrentPlaylistIndex = selectedIndex;
                 }
                 else
                 {
-                    _mainWindow._playlistIndex = 0; // fallback
+                    _mainWindow.CurrentPlaylistIndex = 0; // fallback
                 }
             }
             else
             {
-                _mainWindow._playlistIndex = 0; // fallback
+                _mainWindow.CurrentPlaylistIndex = 0; // fallback
             }
 
             _mainWindow.PlayNextSong();

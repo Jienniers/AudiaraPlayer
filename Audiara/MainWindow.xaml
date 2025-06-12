@@ -22,7 +22,7 @@
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="13*"/>
             </Grid.RowDefinitions>
-            <Button Click="CrossButtonClick" Margin="0,4,14,0" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Width="44">
+            <Button Click="CloseAppButtonClick" Margin="0,4,14,0" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="40" VerticalAlignment="Top" HorizontalAlignment="Right" Width="44">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Image x:Name="buttonImage" Source="Icons/delete-button.png" Width="36" Height="36"/>
@@ -62,7 +62,7 @@
             <Grid Margin="0,0,162,0" MouseLeftButtonDown="OnMouseLeftButtonDown" Grid.RowSpan="2">
                 <Label Name="TimeLabel" Height="44" Margin="10,6,2,6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" FontSize="22"/>
             </Grid>
-            <Button Click="MaximizeButtonClick" Margin="0,0,65,11" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="39" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="43">
+            <Button Click="ToggleWindowMaximizeButton_Click" Margin="0,0,65,11" Background="Transparent" BorderThickness="0" Grid.RowSpan="2" Height="39" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="43">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Image x:Name="buttonImage" Source="/Icons/maximize.png" Width="36" Height="36"/>
@@ -83,7 +83,7 @@
         </Grid>
         <Border BorderBrush="Aqua" BorderThickness="2" Margin="0,72,0,0" CornerRadius="10" HorizontalAlignment="Left" Width="232">
             <Grid>
-                <Button Margin="3,25,3,0" FontSize="25" Click="PlaylistButtonClick" Height="36" VerticalAlignment="Top">
+                <Button Margin="3,25,3,0" FontSize="25" Click="OpenPlaylistDialogButton_Click" Height="36" VerticalAlignment="Top">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -138,7 +138,7 @@
                     </Grid>
                 </Button>
 
-                <Button Margin="3,103,3,0" FontSize="25" Click="FavouriteButtonClick" Height="38" VerticalAlignment="Top">
+                <Button Margin="3,103,3,0" FontSize="25" Click="OpenFavoritesDialogButton_Click" Height="38" VerticalAlignment="Top">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -194,13 +194,13 @@
         </Border>
         <Grid Margin="260,483,0,0">
 
-            <ProgressBar x:Name="progressBar"
-             Value="{Binding ElementName=slider, Path=Value}"
-             Maximum="{Binding ElementName=slider, Path=Maximum}" Margin="0,0,15,60" Background="#FF1B66A4" BorderBrush="Cyan" Height="19" VerticalAlignment="Bottom" />
-            <Slider x:Name="slider"
+            <ProgressBar x:Name="playbackProgressBar"
+             Value="{Binding ElementName=playbackSlider, Path=Value}"
+             Maximum="{Binding ElementName=playbackSlider, Path=Maximum}" Margin="0,0,15,60" Background="#FF1B66A4" BorderBrush="Cyan" Height="19" VerticalAlignment="Bottom" />
+            <Slider x:Name="playbackSlider"
         ValueChanged="Slider_ValueChanged" Margin="0,0,12,62" Height="17" VerticalAlignment="Bottom" />
             <MediaElement x:Name="mediaElement" Margin="0,105,0,0" />
-            <Button Margin="2,0,0,8" FontSize="20" Click="PlayButton" HorizontalAlignment="Left" Width="96" Height="42" VerticalAlignment="Bottom">
+            <Button Margin="2,0,0,8" FontSize="20" Click="OpenAndPlaySongButton_Click" HorizontalAlignment="Left" Width="96" Height="42" VerticalAlignment="Bottom">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -251,7 +251,7 @@
                     <TextBlock Text="Play" VerticalAlignment="Bottom" Margin="11,0,-11,0"/>
                 </Grid>
             </Button>
-            <Button Margin="141,0,0,8" FontSize="20" Click="PauseButtonClick" HorizontalAlignment="Left" Width="105" Height="42" VerticalAlignment="Bottom">
+            <Button Margin="141,0,0,8" FontSize="20" Click="PausePlaybackButton_Click" HorizontalAlignment="Left" Width="105" Height="42" VerticalAlignment="Bottom">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -301,7 +301,7 @@
                     <TextBlock Text="Pause" VerticalAlignment="Center" Margin="11,0,-11,0"/>
                 </Grid>
             </Button>
-            <Button Margin="292,0,300,10" FontSize="20" Click="ResumeSongButtonClick" Height="40" VerticalAlignment="Bottom">
+            <Button Margin="292,0,300,10" FontSize="20" Click="ResumePlaybackButton_Click" Height="40" VerticalAlignment="Bottom">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -350,7 +350,7 @@
                     <TextBlock Text="Resume" VerticalAlignment="Center" Margin="11,0,-11,0"/>
                 </Grid>
             </Button>
-            <Button Margin="0,0,6,10" FontSize="20" Click="StopSongButtonClick" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="108">
+            <Button Margin="0,0,6,10" FontSize="20" Click="StopPlaybackButton_Click" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="108">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -399,7 +399,7 @@
                     <TextBlock Text="Stop" VerticalAlignment="Center" Margin="11,0,-11,0"/>
                 </Grid>
             </Button>
-            <Button Margin="0,0,160,9" FontSize="20" Click="FavouriteSongButtonClick" Height="41" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="96">
+            <Button Margin="0,0,160,9" FontSize="20" Click="AddCurrentSongToFavoritesButton_Click" Height="41" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="96">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -451,9 +451,9 @@
         </Grid>
         <Grid Margin="243,69,3,82">
             <Label Name="startDuration" Content="00:00:00" Margin="11,0,0,5" Foreground="White" FontSize="20" Height="33" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="135"/>
-            <Label Name="totalDuration" Content="00:00:00" Margin="0,0,3,5" Foreground="White" FontSize="20" Height="33" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="83"/>
+            <Label Name="totalDurationLabel" Content="00:00:00" Margin="0,0,3,5" Foreground="White" FontSize="20" Height="33" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="83"/>
             <Grid Margin="0,0,0,37">
-                <Button Margin="4,9,0,9" FontSize="20" Click="PreviousSongButtonClick" HorizontalAlignment="Left" Width="34">
+                <Button Margin="4,9,0,9" FontSize="20" Click="PlayPreviousSongButton_Click" HorizontalAlignment="Left" Width="34">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -501,7 +501,7 @@
                         <Image Source="/Icons/Control Buttons/previous-song.png" Width="20" Height="20"/>
                     </StackPanel>
                 </Button>
-                <Button FontSize="20" Click="NextSongButtonClick" Margin="0,9,4,9" HorizontalAlignment="Right" Width="34">
+                <Button FontSize="20" Click="PlayNextSongButton_Click" Margin="0,9,4,9" HorizontalAlignment="Right" Width="34">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}" CornerRadius="5">
