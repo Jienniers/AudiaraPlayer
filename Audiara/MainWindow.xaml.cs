@@ -199,23 +199,6 @@ namespace Audiara
         private void ResumePlaybackButton_Click(object sender, RoutedEventArgs e)
         {
             mediaElement.Play();
-            //if (isPlaying)
-            //{
-            //    mediaElement.Play();
-            //}
-            //else
-            //{
-            //    if (playlistIndex < playlist_songs.Count)
-            //    {
-            //        PublicObjects.PlayMusic(mediaElement, playlist_songs[playlistIndex]);
-            //        songPlayingPath = playlist_songs[playlistIndex];
-            //        string fileNameToGet = playlist_songs[playlistIndex];
-            //        CallFunctions.updateFileDetail(Mp3FileDetail, fileNameToGet);
-            //        isPlaying = true;
-            //        playlistIndex++;
-            //        _ = (playlistIndex >= playlist_songs.Count) ? playlistIndex = 0 : 0;
-            //    }
-            //}
         }
 
         private void StopPlaybackButton_Click(object sender, RoutedEventArgs e)
