@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using Audiara.Classes;
 using Audiara.Shared;
 
 namespace Audiara
