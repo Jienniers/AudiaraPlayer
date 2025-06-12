@@ -65,13 +65,39 @@ namespace Audiara
         private void PlayPlaylist(object sender, RoutedEventArgs e)
         {
             MainWindow.PlaylistSongs.Clear();
+
             foreach (string items in _files.Values)
             {
                 MainWindow.PlaylistSongs.Add(items);
             }
+
+            // Get the selected file name from ListBox
+            string selectedFileName = GetSelectedDescription();
+
+            if (!string.IsNullOrEmpty(selectedFileName) && _files.ContainsKey(selectedFileName))
+            {
+                string selectedFullPath = _files[selectedFileName];
+
+                // Find the index of the selected song in PlaylistSongs
+                int selectedIndex = MainWindow.PlaylistSongs.IndexOf(selectedFullPath);
+                if (selectedIndex != -1)
+                {
+                    _mainWindow._playlistIndex = selectedIndex;
+                }
+                else
+                {
+                    _mainWindow._playlistIndex = 0; // fallback
+                }
+            }
+            else
+            {
+                _mainWindow._playlistIndex = 0; // fallback
+            }
+
             _mainWindow.PlayNextSong();
             Close();
         }
+
 
         private void RemoveBtn(object sender, RoutedEventArgs e)
         {

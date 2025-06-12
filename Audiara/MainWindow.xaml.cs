@@ -13,7 +13,7 @@ namespace Audiara
     {
         private bool _isDraggingSlider = false;
         private DispatcherTimer _timer;
-        private int _playlistIndex = 0;
+        public int _playlistIndex = 0;
         internal bool IsPlaying = false;
         private string _songPlayingPath;
         public static Dictionary<string, string> _favJsonData = new Dictionary<string, string>();
@@ -77,14 +77,14 @@ namespace Audiara
         {
             if (_playlistIndex < PlaylistSongs.Count)
             {
-                _playlistIndex++;
-                string fileNameToGet = PlaylistSongs[_playlistIndex];
-                
+                string fileNameToGet = PlaylistSongs[_playlistIndex]; // don't increment yet
+
                 MusicPlayerService.PlayMusic(mediaElement, fileNameToGet);
-                
                 CallFunctions.UpdateFileDetail(Mp3FileDetail, fileNameToGet);
                 _songPlayingPath = fileNameToGet;
                 IsPlaying = true;
+
+                _playlistIndex++; // increment AFTER playing current song
             }
             else
             {
@@ -92,6 +92,7 @@ namespace Audiara
                 mediaElement.Stop();
             }
         }
+
 
         public void FavPlaySong(string filepath)
         {
