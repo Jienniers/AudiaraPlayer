@@ -22,6 +22,18 @@ namespace Audiara
         {
             InitializeComponent();
             this._mainWindow = mainWindow;
+            foreach (string filePath in MainWindow.PlaylistSongs)
+            {
+                string fileNameOnly = Path.GetFileName(filePath);
+        
+                // Avoid duplicates
+                if (!_files.ContainsValue(filePath))
+                {
+                    _playlistNum++;
+                    _files.Add(fileNameOnly, filePath);
+                    ListBoxHelper.AddItem(SongsPlaylist, _playlistNum.ToString(), fileNameOnly);
+                }
+            }
         }
 
         private void AddFileButton(object sender, RoutedEventArgs e)
