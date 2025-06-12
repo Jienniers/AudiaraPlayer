@@ -6,7 +6,8 @@ A Music Player with Different Functionalities, Check Out
 🚧 **Work in Progress** 🚧
 
 This project is currently under active development.  
-Expect frequent changes, incomplete features, outdated Readme and possibly broken stuff 😅  
+Expect frequent changes, incomplete features, outdated Readme and possibly broken stuff 😅
+If you're curious or want to contribute, welcome — just know it's not production-ready.
 
 ---
 
