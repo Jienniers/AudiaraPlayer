@@ -313,17 +313,21 @@ namespace Audiara
 
         private void PlaySongFromPlaylistSelectedIndex()
         {
-            if (CurrentPlaylistIndex >= 0 && CurrentPlaylistIndex < PlaylistSongs.Count)
+            if (CurrentPlaylistIndex < 0 || CurrentPlaylistIndex >= PlaylistSongs.Count)
+                return;
+
+            string songPath = PlaylistSongs[CurrentPlaylistIndex];
+
+            if (!File.Exists(songPath))
             {
-                MusicPlayerService.PlayMusic(mediaElement, PlaylistSongs[CurrentPlaylistIndex]);
-                string fileNameToGet = PlaylistSongs[CurrentPlaylistIndex];
-                _currentSongPath = fileNameToGet;
-                UiHelpers.UpdateSongDetailsDisplay(Mp3FileDetail, fileNameToGet);
-                if (!File.Exists(PlaylistSongs[CurrentPlaylistIndex]))
-                {
-                    MessageBoxService.FileNotFound();
-                }
+                MessageBoxService.FileNotFound();
+                return;
             }
+
+            MusicPlayerService.PlayMusic(mediaElement, songPath);
+            _currentSongPath = songPath;
+            UiHelpers.UpdateSongDetailsDisplay(Mp3FileDetail, songPath);
+            IsPlaying = true;
         }
     }
 }
