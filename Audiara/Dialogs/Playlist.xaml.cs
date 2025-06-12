@@ -77,18 +77,23 @@ namespace Audiara
         {
             if (SongsPlaylist.SelectedItem != null)
             {
-                _playlistNum = 0;
-                _files.Remove(GetSelectedDescription());
-                SongsPlaylist.Items.Clear();
-                _files.Remove(GetSelectedDescription());
-                foreach (String item in _files.Keys)
-                {
-                    _playlistNum++;
-                    ListBoxHelper.AddItem(SongsPlaylist, _playlistNum.ToString(), item);
+                string selectedFileName = GetSelectedDescription();
 
-                    if (MainWindow.PlaylistSongs.Contains(item))
+                if (_files.ContainsKey(selectedFileName))
+                {
+                    string fullPath = _files[selectedFileName];
+
+                    // Remove from both _files and PlaylistSongs
+                    _files.Remove(selectedFileName);
+                    MainWindow.PlaylistSongs.Remove(fullPath);
+
+                    // Rebuild the ListBox
+                    SongsPlaylist.Items.Clear();
+                    _playlistNum = 0;
+                    foreach (var item in _files)
                     {
-                        MainWindow.PlaylistSongs.Remove(item);
+                        _playlistNum++;
+                        ListBoxHelper.AddItem(SongsPlaylist, _playlistNum.ToString(), item.Key);
                     }
                 }
             }
