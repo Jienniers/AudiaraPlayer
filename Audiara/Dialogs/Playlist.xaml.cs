@@ -149,5 +149,18 @@ namespace Audiara
 
             return string.Empty;
         }
+        
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            // Sync _files to MainWindow.PlaylistSongs
+            MainWindow.PlaylistSongs.Clear();
+            foreach (var path in _files.Values)
+            {
+                MainWindow.PlaylistSongs.Add(path);
+            }
+        }
+
     }
 }
