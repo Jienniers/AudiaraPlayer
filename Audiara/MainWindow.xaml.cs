@@ -15,10 +15,10 @@ namespace Audiara
         public int CurrentPlaylistIndex = 0;
         private bool _isPlaying = false;
         private string _currentSongPath;
-        public static Dictionary<string, string> FavoriteSongs = new Dictionary<string, string>();
+        public static readonly Dictionary<string, string> FavoriteSongs = new Dictionary<string, string>();
         private bool _isWindowMaximized = false;
         
-        public static List<String> PlaylistSongs = new List<String>();
+        public static readonly List<String> PlaylistSongs = new List<String>();
         
         public MainWindow()
         {
