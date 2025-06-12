@@ -1,7 +1,9 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 using Audiara.Shared;
 using Microsoft.Win32;
@@ -319,5 +321,18 @@ namespace Audiara
             UiHelpers.UpdateSongDetailsDisplay(Mp3FileDetail, songPath);
             _isPlaying = true;
         }
+        
+        private void PlaybackSlider_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            _isSliderBeingDragged = true;
+        }
+
+        private void PlaybackSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            _isSliderBeingDragged = false;
+            mediaElement.Position = TimeSpan.FromSeconds(playbackSlider.Value);
+        }
+
+
     }
 }

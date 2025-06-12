@@ -198,7 +198,12 @@
              Value="{Binding ElementName=playbackSlider, Path=Value}"
              Maximum="{Binding ElementName=playbackSlider, Path=Maximum}" Margin="0,0,15,60" Background="#FF1B66A4" BorderBrush="Cyan" Height="19" VerticalAlignment="Bottom" />
             <Slider x:Name="playbackSlider"
-        ValueChanged="Slider_ValueChanged" Margin="0,0,12,62" Height="17" VerticalAlignment="Bottom" />
+                    PreviewMouseLeftButtonDown="PlaybackSlider_PreviewMouseDown"
+                    PreviewMouseLeftButtonUp="PlaybackSlider_PreviewMouseUp"
+        ValueChanged="Slider_ValueChanged"
+        Margin="0,0,12,62" 
+        Height="17" 
+        VerticalAlignment="Bottom" />
             <MediaElement x:Name="mediaElement" Margin="0,105,0,0" />
             <Button Margin="2,0,0,8" FontSize="20" Click="OpenAndPlaySongButton_Click" HorizontalAlignment="Left" Width="96" Height="42" VerticalAlignment="Bottom">
                 <Button.Template>
