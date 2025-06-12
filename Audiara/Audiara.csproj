@@ -53,7 +53,6 @@
     <Resource Include="Icons\SideBar\favourite.png" />
     <Resource Include="Icons\SideBar\playlist.png" />
     <Resource Include="Icons\SideBar\settings.png" />
-    <Resource Include="Icons\SideBar\YoutubeMusic.png" />
   </ItemGroup>
 
 </Project>
