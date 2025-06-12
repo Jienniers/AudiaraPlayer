@@ -13,7 +13,7 @@ namespace Audiara
         private bool _isSliderBeingDragged = false;
         private DispatcherTimer _playbackTimer;
         public int CurrentPlaylistIndex = 0;
-        internal bool IsPlaying = false;
+        private bool _isPlaying = false;
         private string _currentSongPath;
         public static Dictionary<string, string> FavoriteSongs = new Dictionary<string, string>();
         private bool _isWindowMaximized = false;
@@ -41,7 +41,7 @@ namespace Audiara
                 UiHelpers.UpdateSongDetailsDisplay(Mp3FileDetail,filePath);
                 playbackSlider.Value = 0;
                 playbackProgressBar.Value = 0;
-                IsPlaying = true;
+                _isPlaying = true;
             }
         }
 
@@ -81,13 +81,13 @@ namespace Audiara
                 MusicPlayerService.PlayMusic(mediaElement, fileNameToGet);
                 UiHelpers.UpdateSongDetailsDisplay(Mp3FileDetail, fileNameToGet);
                 _currentSongPath = fileNameToGet;
-                IsPlaying = true;
+                _isPlaying = true;
 
                 CurrentPlaylistIndex++; // increment AFTER playing current song
             }
             else
             {
-                IsPlaying = false;
+                _isPlaying = false;
                 mediaElement.Stop();
             }
         }
@@ -100,7 +100,7 @@ namespace Audiara
             UiHelpers.UpdateSongDetailsDisplay(Mp3FileDetail, filepath);
             this.playbackSlider.Value = 0;
             this.playbackProgressBar.Value = 0;
-            IsPlaying = true;
+            _isPlaying = true;
         }
 
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -134,7 +134,7 @@ namespace Audiara
                 UiHelpers.UpdateSongDetailsDisplay(Mp3FileDetail, _currentSongPath);
                 this.playbackSlider.Value = 0;
                 this.playbackProgressBar.Value = 0;
-                IsPlaying = true;
+                _isPlaying = true;
             }
         }
 
@@ -153,7 +153,7 @@ namespace Audiara
             this._playbackTimer.Stop();
             this.playbackSlider.Value = 0;
             this.playbackProgressBar.Value = 0;
-            if (IsPlaying) IsPlaying = false;
+            if (_isPlaying) _isPlaying = false;
             Mp3FileDetail.Text = "";
             startDuration.Content = "00:00:00";
             totalDurationLabel.Content = "00:00:00";
@@ -169,7 +169,7 @@ namespace Audiara
             {
                 if (!this._isSliderBeingDragged) this.playbackSlider.Value = currentPosition;
 
-                if (IsPlaying)
+                if (_isPlaying)
                 {
                     UiHelpers.UpdateTimeLabel(currentPosition, startDuration);
                     totalDurationLabel.Content = mediaElement.NaturalDuration.ToString();
@@ -317,7 +317,7 @@ namespace Audiara
             MusicPlayerService.PlayMusic(mediaElement, songPath);
             _currentSongPath = songPath;
             UiHelpers.UpdateSongDetailsDisplay(Mp3FileDetail, songPath);
-            IsPlaying = true;
+            _isPlaying = true;
         }
     }
 }
