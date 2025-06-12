@@ -16,7 +16,6 @@ namespace Audiara
     {
         private int _playlistNum = 0;
         Dictionary<String, String> _files = new Dictionary<String, String>();
-        private List<String> _playlistSongs = PublicObjects.PlaylistSongs;
 
         private MainWindow _mainWindow;
         public Playlist(MainWindow mainWindow)
@@ -53,10 +52,10 @@ namespace Audiara
 
         private void PlayPlaylist(object sender, RoutedEventArgs e)
         {
-            _playlistSongs.Clear();
+            MainWindow.PlaylistSongs.Clear();
             foreach (string items in _files.Values)
             {
-                _playlistSongs.Add(items);
+                MainWindow.PlaylistSongs.Add(items);
             }
             _mainWindow.PlayNextSong();
             Close();
@@ -75,9 +74,9 @@ namespace Audiara
                     _playlistNum++;
                     ListBoxHelper.AddItem(SongsPlaylist, _playlistNum.ToString(), item);
 
-                    if (_playlistSongs.Contains(item))
+                    if (MainWindow.PlaylistSongs.Contains(item))
                     {
-                        _playlistSongs.Remove(item);
+                        MainWindow.PlaylistSongs.Remove(item);
                     }
                 }
             }
@@ -87,7 +86,7 @@ namespace Audiara
         {
             SongsPlaylist.Items.Clear();
             _files.Clear();
-            _playlistSongs.Clear();
+            MainWindow.PlaylistSongs.Clear();
             _playlistNum = 0;
         }
 

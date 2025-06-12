@@ -13,12 +13,13 @@ namespace Audiara
     {
         private bool _isDraggingSlider = false;
         private DispatcherTimer _timer;
-        private readonly  List<String> _playlistSongs = PublicObjects.PlaylistSongs;
         private int _playlistIndex = 0;
         internal bool IsPlaying = false;
         private string _songPlayingPath;
         private Dictionary<string, string> _favJsonData = new Dictionary<string, string>();
         private bool _maximized = false;
+        
+        public static List<String> PlaylistSongs = new List<String>();
         
         public MainWindow()
         {
@@ -74,10 +75,10 @@ namespace Audiara
 
         public void PlayNextSong()
         {
-            if (_playlistIndex < _playlistSongs.Count)
+            if (_playlistIndex < PlaylistSongs.Count)
             {
                 _playlistIndex++;
-                string fileNameToGet = _playlistSongs[_playlistIndex];
+                string fileNameToGet = PlaylistSongs[_playlistIndex];
                 
                 MusicPlayerService.PlayMusic(mediaElement, fileNameToGet);
                 
@@ -293,14 +294,14 @@ namespace Audiara
         private void PreviousSongButtonClick(object sender, RoutedEventArgs e)
         {
             bool indexGreaterThan0 = (_playlistIndex > 0);
-            _ = (indexGreaterThan0) ? _playlistIndex-- : _playlistIndex = _playlistSongs.Count - 1;
+            _ = (indexGreaterThan0) ? _playlistIndex-- : _playlistIndex = PlaylistSongs.Count - 1;
 
             PlayCurrentSong();
         }
 
         private void NextSongButtonClick(object sender, RoutedEventArgs e)
         {
-            bool indexLessThanList = (_playlistIndex < _playlistSongs.Count - 1);
+            bool indexLessThanList = (_playlistIndex < PlaylistSongs.Count - 1);
             _ = (indexLessThanList) ? _playlistIndex++ : _playlistIndex = 0;
 
             PlayCurrentSong();
@@ -308,13 +309,13 @@ namespace Audiara
 
         private void PlayCurrentSong()
         {
-            if (_playlistIndex >= 0 && _playlistIndex < _playlistSongs.Count)
+            if (_playlistIndex >= 0 && _playlistIndex < PlaylistSongs.Count)
             {
-                MusicPlayerService.PlayMusic(mediaElement, _playlistSongs[_playlistIndex]);
-                string fileNameToGet = _playlistSongs[_playlistIndex];
+                MusicPlayerService.PlayMusic(mediaElement, PlaylistSongs[_playlistIndex]);
+                string fileNameToGet = PlaylistSongs[_playlistIndex];
                 _songPlayingPath = fileNameToGet;
                 CallFunctions.UpdateFileDetail(Mp3FileDetail, fileNameToGet);
-                if (!File.Exists(_playlistSongs[_playlistIndex]))
+                if (!File.Exists(PlaylistSongs[_playlistIndex]))
                 {
                     MessageBoxService.FileNotFound();
                 }
