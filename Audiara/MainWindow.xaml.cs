@@ -16,7 +16,7 @@ namespace Audiara
         private int _playlistIndex = 0;
         internal bool IsPlaying = false;
         private string _songPlayingPath;
-        private Dictionary<string, string> _favJsonData = new Dictionary<string, string>();
+        public static Dictionary<string, string> _favJsonData = new Dictionary<string, string>();
         private bool _maximized = false;
         
         public static List<String> PlaylistSongs = new List<String>();
