@@ -297,19 +297,26 @@ namespace Audiara
 
         private void PlayPreviousSongButton_Click(object sender, RoutedEventArgs e)
         {
-            bool indexGreaterThan0 = (CurrentPlaylistIndex > 0);
-            _ = (indexGreaterThan0) ? CurrentPlaylistIndex-- : CurrentPlaylistIndex = PlaylistSongs.Count - 1;
-
+            CurrentPlaylistIndex = GetPreviousSongIndex();
             PlaySongFromPlaylistSelectedIndex();
         }
 
         private void PlayNextSongButton_Click(object sender, RoutedEventArgs e)
         {
-            bool indexLessThanList = (CurrentPlaylistIndex < PlaylistSongs.Count - 1);
-            _ = (indexLessThanList) ? CurrentPlaylistIndex++ : CurrentPlaylistIndex = 0;
-
+            CurrentPlaylistIndex = GetNextSongIndex();
             PlaySongFromPlaylistSelectedIndex();
         }
+
+        private int GetPreviousSongIndex()
+        {
+            return (CurrentPlaylistIndex > 0) ? CurrentPlaylistIndex - 1 : PlaylistSongs.Count - 1;
+        }
+
+        private int GetNextSongIndex()
+        {
+            return (CurrentPlaylistIndex < PlaylistSongs.Count - 1) ? CurrentPlaylistIndex + 1 : 0;
+        }
+
 
         private void PlaySongFromPlaylistSelectedIndex()
         {
