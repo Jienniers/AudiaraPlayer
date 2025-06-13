@@ -1,54 +1,146 @@
-# Music Player
-A Music Player with Different Functionalities, Check Out
+# 🎵 Audiara
+
+Your sleek, modern, and user-friendly **C# WPF Music Player** built for music lovers. An elegant desktop app designed for intuitive playback, playlist management, and more.
 
 ---
 
-🚧 **Work in Progress** 🚧
+## 🗓️ Project Status
 
-This project is currently under active development.  
-Expect frequent changes, incomplete features, outdated Readme and possibly broken stuff 😅
-If you're curious or want to contribute, welcome — just know it's not production-ready.
+> ✅ **Stable & Ready to Use**
+
+The development phase is now **complete**. Audiara is in a stable state and ready for daily use! Feel free to explore, use, and contribute.
 
 ---
 
-## Features
+## 🎤 Features
 
-- Time Toggle
-- Built in Youtube Music
-- Playlist
-- Favourites
+* 💟 **Favorites**: Mark and manage your favorite tracks
+* 📝 **Playlists**: Create and navigate custom playlists
+* ⏭️ **Next / Previous**: Easily jump between songs
 
-## Logo
-![Logo](https://github.com/Jienniers/Music-Player/blob/main/Images/Logo/Icon.png)
+---
 
+## 🎨 Screenshots
 
-## Screenshots
+### 🎮 UI Preview
 
-![App Screenshot](https://github.com/Jienniers/Music-Player/blob/main/Images/Screenshot/Screenshots1.png)
+![Screenshot1](https://github.com/Jienniers/AudiaraPlayer/blob/main/Images/Screenshot/Screenshots1.png)
 
-![App Screenshot](https://github.com/Jienniers/Music-Player/blob/main/Images/Screenshot/Screenshot2.png)
+![Screenshot2](https://github.com/Jienniers/AudiaraPlayer/blob/main/Images/Screenshot/Screenshot2.png)
 
+### 🏆 Logo
 
-## Configuration
-All the json Configuration files are stored in the folder where the app is installed ``MusicPlayer\Data``
+<img src="https://github.com/Jienniers/AudiaraPlayer/blob/main/Images/Logo/Icon.png?raw=true" width="150"/>
 
+---
 
-## Platforms
+## 🚀 Installation Guide
 
-- Windows
-## Authors
+> Built using **C# WPF**, designed for **Windows OS** only.
 
-- [@Jiennier](https://github.com/Jienniers/)
+### ⚙️ Requirements to Run Locally
 
+* [Visual Studio](https://visualstudio.microsoft.com/) with ".NET Desktop Development" workload
+  **OR**
+* [JetBrains Rider](https://www.jetbrains.com/rider/) with .NET SDK support
 
-## Issues
+### 🔄 Steps to Run Locally
 
-Feel Free to open any [Issue](https://github.com/Jienniers/Music-Player/issues)
+1. **Clone the repo**
 
-## Pull Requests
+```bash
+git clone https://github.com/Jienniers/AudiaraPlayer.git
+```
 
-Feel Free to do any [Pull Requests](https://github.com/Jienniers/Music-Player/pulls)
+2. **Open the solution file** (`.sln`) in Visual Studio or Rider
+3. **Restore NuGet packages** if prompted
+4. **Build & Run the project** from your IDE
 
-## Support
+---
 
-If you encounter any issues or have suggestions for improvement, please submit an issue on the GitHub repository.
+## 🔧 Running the Compiled Version
+
+> 📂 No build setup? No problem!
+
+Download the latest `.exe` from the [**Releases Page 🔗**](https://github.com/Jienniers/AudiaraPlayer/releases) and start listening instantly!
+
+### ⚠️ System Requirements for `.exe`
+
+To run the compiled Audiara `.exe` smoothly:
+
+* 📺 **Windows 7 or newer** is required (Windows 10/11 recommended)
+* 🔗 Install the **.NET Desktop Runtime** matching the app's target version (e.g., [.NET 6 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0))
+
+> No extra dependencies or third-party tools needed!
+
+---
+
+## 🔍 Contribution Guide
+
+We welcome your ideas, improvements, and fixes!
+
+### ✏️ How to Contribute:
+
+1. **Fork** the repository
+2. **Clone** your fork:
+
+```bash
+git clone https://github.com/yourusername/AudiaraPlayer.git
+```
+
+3. Create your **feature branch**:
+
+```bash
+git checkout -b feature/YourFeatureName
+```
+
+4. **Commit** and **push** your changes
+5. Submit a **Pull Request** on GitHub
+
+---
+
+## 🔐 Developer Notes
+
+* ⚙️ **SettingsDialog** is currently **not functional** — it's intentionally included as a **placeholder** for future app configuration options.
+
+---
+
+## ⚠️ Issue Reporting
+
+Found a bug or have a suggestion?
+
+Please open a detailed [Issue here](https://github.com/Jienniers/AudiaraPlayer/issues)!
+
+### 💼 Issue Template
+
+```
+**Describe the bug / suggestion**
+A clear and concise description of the problem or idea.
+
+**Steps to Reproduce**
+1. Go to '...'
+2. Click on '...'
+3. See error
+
+**Expected Behavior**
+What you expected to happen.
+
+**Screenshots (if applicable)**
+
+**Environment:**
+- OS: [e.g. Windows 11]
+- App Version: [e.g. v1.0.2]
+
+**Additional context**
+Add any other context here.
+```
+
+---
+
+## 👨‍💼 Author
+
+Made with passion by [@Jiennier](https://github.com/Jienniers)
+
+---
+
+**Enjoy your music journey with Audiara!** ✨🎶
