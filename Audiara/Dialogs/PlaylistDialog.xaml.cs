@@ -9,15 +9,15 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 namespace Audiara
 {
     /// <summary>
-    /// Interaction logic for Playlist.xaml
+    /// Interaction logic for PlaylistDialog.xaml
     /// </summary>
-    public partial class Playlist : Window
+    public partial class PlaylistDialog : Window
     {
         private int _playlistNum = 0;
         Dictionary<String, String> _files = new Dictionary<String, String>();
 
         private MainWindow _mainWindow;
-        public Playlist(MainWindow mainWindow)
+        public PlaylistDialog(MainWindow mainWindow)
         {
             InitializeComponent();
             this._mainWindow = mainWindow;

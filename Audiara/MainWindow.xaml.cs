@@ -232,7 +232,7 @@ namespace Audiara
         // Opens playlist dialog
         private void OpenPlaylistDialogButton_Click(object sender, RoutedEventArgs e)
         {
-            Playlist pla = new(this);
+            PlaylistDialog pla = new(this);
             pla.ShowDialog();
         }
 
