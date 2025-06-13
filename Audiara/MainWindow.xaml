@@ -134,7 +134,7 @@
                         </Style>
                     </Button.Style>
                     <Grid>
-                        <TextBlock Text="PlaylistDialog" VerticalAlignment="Bottom" Margin="34,0,-34,-2"/>
+                        <TextBlock Text="Playlist" VerticalAlignment="Bottom" Margin="34,0,-34,-2"/>
                     </Grid>
                 </Button>
 
