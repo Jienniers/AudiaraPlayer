@@ -7,17 +7,17 @@ namespace Audiara
 {
     public partial class FavoritesDialog : Window
     {
-        private int _favoriteSongCount = 0;
+        private int _favoriteCount = 0;
         private Dictionary<string, string> FavoriteSongs => MainWindow.FavoriteSongs; // Refer to static memory
 
         public FavoritesDialog()
         {
             InitializeComponent();
-            RefreshListBox();
-            VerifyFiles();
+            UpdateFavoritesListUI();
+            RemoveMissingFiles();
         }
 
-        private void VerifyFiles()
+        private void RemoveMissingFiles()
         {
             List<string> toRemove = new List<string>();
 
@@ -35,33 +35,33 @@ namespace Audiara
                 FavoriteSongs.Remove(key);
             }
 
-            RefreshListBox();
+            UpdateFavoritesListUI();
         }
 
-        private void RefreshListBox()
+        private void UpdateFavoritesListUI()
         {
-            FavoritesListBox.Items.Clear();
-            _favoriteSongCount = 0;
+            FavoriteSongsListBox.Items.Clear();
+            _favoriteCount = 0;
 
             foreach (var kv in FavoriteSongs)
             {
-                _favoriteSongCount++;
-                ListBoxHelper.AddItem(FavoritesListBox, _favoriteSongCount.ToString(), kv.Key);
+                _favoriteCount++;
+                ListBoxHelper.AddItem(FavoriteSongsListBox, _favoriteCount.ToString(), kv.Key);
             }
         }
 
-        private void RemoveSelectedFavorite(object sender, RoutedEventArgs e)
+        private void OnRemoveFavoriteClick(object sender, RoutedEventArgs e)
         {
             string selected = GetSelectedFavoriteTitle();
 
             if (!string.IsNullOrEmpty(selected) && FavoriteSongs.ContainsKey(selected))
             {
                 FavoriteSongs.Remove(selected);
-                RefreshListBox();
+                UpdateFavoritesListUI();
             }
         }
 
-        private void PlaySelectedFavorite(object sender, RoutedEventArgs e)
+        private void OnPlayFavoriteClick(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is MainWindow mainWindow)
             {
@@ -75,7 +75,7 @@ namespace Audiara
                     {
                         MessageBoxService.ShowError("Music File wasn't found. Removing it.");
                         FavoriteSongs.Remove(selected);
-                        RefreshListBox();
+                        UpdateFavoritesListUI();
                         return;
                     }
 
@@ -91,7 +91,7 @@ namespace Audiara
 
         private string GetSelectedFavoriteTitle()
         {
-            if (FavoritesListBox.SelectedItem is ListBoxItem selectedListBoxItem)
+            if (FavoriteSongsListBox.SelectedItem is ListBoxItem selectedListBoxItem)
             {
                 if (selectedListBoxItem.Content is StackPanel stackPanel &&
                     stackPanel.Children.Count > 1 &&
