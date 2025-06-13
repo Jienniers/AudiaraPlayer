@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Audiara"
         mc:Ignorable="d"
-        Title="PlaylistDialog" Height="380" Width="600"
+        Title="Playlist" Height="380" Width="600"
         Background="#FF1C1E1F"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
