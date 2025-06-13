@@ -261,7 +261,7 @@ namespace Audiara
         // Opens favorites dialog
         private void OpenFavoritesDialogButton_Click(object sender, RoutedEventArgs e)
         {
-            FavDialog favDialog = new();
+            FavoritesDialog favDialog = new();
             favDialog.ShowDialog();
         }
 

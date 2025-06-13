@@ -5,12 +5,12 @@ using Audiara.Shared;
 
 namespace Audiara
 {
-    public partial class FavDialog : Window
+    public partial class FavoritesDialog : Window
     {
         private int _favoriteSongCount = 0;
         private Dictionary<string, string> FavoriteSongs => MainWindow.FavoriteSongs; // Refer to static memory
 
-        public FavDialog()
+        public FavoritesDialog()
         {
             InitializeComponent();
             RefreshListBox();
