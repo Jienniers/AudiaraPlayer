@@ -13,12 +13,16 @@ namespace Audiara
     /// </summary>
     public partial class PlaylistDialog : Window
     {
-        // Fields
+        // Tracks the number of items added to the playlist (used for indexing).
         private int _playlistItemCount = 0;
+
+        // Holds the playlist entries: filename (for UI) mapped to full path (for playback).
         private readonly Dictionary<string, string> _playlistFiles = new();
+
+        // Reference to the main window to update the playing queue and index.
         private readonly MainWindow _mainWindow;
 
-        // Constructor
+        // Constructor initializes UI and pre-loads existing playlist items.
         public PlaylistDialog(MainWindow mainWindow)
         {
             InitializeComponent();
@@ -26,14 +30,14 @@ namespace Audiara
             LoadInitialPlaylistItems();
         }
 
-        // Lifecycle
+        // Triggered when the window is closed; ensures sync with main playlist state.
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
             SyncPlaylistToMainWindow();
         }
 
-        // Initialization Helpers
+        // Adds all items from the shared playlist into the local playlist UI, avoiding duplicates.
         private void LoadInitialPlaylistItems()
         {
             foreach (string filePath in MainWindow.PlaylistSongs)
@@ -49,6 +53,7 @@ namespace Audiara
             }
         }
 
+        // Pushes the local playlist state back to the main window.
         private void SyncPlaylistToMainWindow()
         {
             MainWindow.PlaylistSongs.Clear();
@@ -58,7 +63,7 @@ namespace Audiara
             }
         }
 
-        // UI Event Handlers
+        // Adds a single .mp3 file to the playlist via OpenFileDialog.
         private void OnAddFileClick(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog
@@ -85,6 +90,7 @@ namespace Audiara
             }
         }
 
+        // Adds all .mp3 files from a selected folder, skipping existing entries.
         private void OnAddFolderClick(object sender, RoutedEventArgs e)
         {
             using var dialog = new FolderBrowserDialog();
@@ -111,6 +117,7 @@ namespace Audiara
             }
         }
 
+        // Removes a selected file from the playlist and updates the UI.
         private void OnRemoveFileClick(object sender, RoutedEventArgs e)
         {
             string selectedFileName = GetSelectedDescription();
@@ -124,6 +131,7 @@ namespace Audiara
             RefreshPlaylistUI();
         }
 
+        // Clears the entire playlist both visually and in memory.
         private void OnClearPlaylistClick(object sender, RoutedEventArgs e)
         {
             _playlistFiles.Clear();
@@ -132,6 +140,7 @@ namespace Audiara
             SongsPlaylist.Items.Clear();
         }
 
+        // Finalizes the playlist and starts playback from the selected or first item.
         private void OnPlayPlaylistClick(object sender, RoutedEventArgs e)
         {
             MainWindow.PlaylistSongs.Clear();
@@ -156,7 +165,7 @@ namespace Audiara
             Close();
         }
 
-        // UI Helpers
+        // Redraws the entire playlist list box to reflect current state.
         private void RefreshPlaylistUI()
         {
             SongsPlaylist.Items.Clear();
@@ -168,6 +177,7 @@ namespace Audiara
             }
         }
 
+        // Extracts the display text (file name) of the currently selected playlist item.
         private string GetSelectedDescription()
         {
             if (SongsPlaylist.SelectedItem is ListBoxItem selectedItem &&
