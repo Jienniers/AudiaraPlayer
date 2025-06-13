@@ -14,7 +14,7 @@ namespace Audiara
     public partial class PlaylistDialog : Window
     {
         private int _playlistItemCount = 0;
-        Dictionary<String, String> _playlistFiles = new Dictionary<String, String>();
+        private readonly Dictionary<String, String> _playlistFiles = new Dictionary<String, String>();
 
         private MainWindow _mainWindow;
         public PlaylistDialog(MainWindow mainWindow)
