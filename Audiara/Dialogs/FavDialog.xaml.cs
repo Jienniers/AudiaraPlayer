@@ -25,7 +25,7 @@ namespace Audiara
             {
                 if (!File.Exists(kv.Value))
                 {
-                    MessageBox.Show($"{kv.Key} was removed because it was not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxService.ShowError($"{kv.Key} was removed because it was not found.");
                     toRemove.Add(kv.Key);
                 }
             }
@@ -73,7 +73,7 @@ namespace Audiara
 
                     if (!File.Exists(path))
                     {
-                        MessageBox.Show("Music File wasn't found. Removing it.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBoxService.ShowError("Music File wasn't found. Removing it.");
                         _favoriteSongs.Remove(selected);
                         RefreshListBox();
                         return;
@@ -84,7 +84,7 @@ namespace Audiara
                 }
                 else
                 {
-                    MessageBox.Show("No music was selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxService.ShowError("No music was selected.");
                 }
             }
         }
