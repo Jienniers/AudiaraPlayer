@@ -8,7 +8,7 @@ namespace Audiara
     public partial class FavDialog : Window
     {
         private int _favoriteSongCount = 0;
-        private Dictionary<string, string> _favoriteSongs => MainWindow.FavoriteSongs; // Refer to static memory
+        private Dictionary<string, string> FavoriteSongs => MainWindow.FavoriteSongs; // Refer to static memory
 
         public FavDialog()
         {
@@ -21,7 +21,7 @@ namespace Audiara
         {
             List<string> toRemove = new List<string>();
 
-            foreach (var kv in _favoriteSongs)
+            foreach (var kv in FavoriteSongs)
             {
                 if (!File.Exists(kv.Value))
                 {
@@ -32,7 +32,7 @@ namespace Audiara
 
             foreach (var key in toRemove)
             {
-                _favoriteSongs.Remove(key);
+                FavoriteSongs.Remove(key);
             }
 
             RefreshListBox();
@@ -43,7 +43,7 @@ namespace Audiara
             FavoritesListBox.Items.Clear();
             _favoriteSongCount = 0;
 
-            foreach (var kv in _favoriteSongs)
+            foreach (var kv in FavoriteSongs)
             {
                 _favoriteSongCount++;
                 ListBoxHelper.AddItem(FavoritesListBox, _favoriteSongCount.ToString(), kv.Key);
@@ -54,9 +54,9 @@ namespace Audiara
         {
             string selected = GetSelectedFavoriteTitle();
 
-            if (!string.IsNullOrEmpty(selected) && _favoriteSongs.ContainsKey(selected))
+            if (!string.IsNullOrEmpty(selected) && FavoriteSongs.ContainsKey(selected))
             {
-                _favoriteSongs.Remove(selected);
+                FavoriteSongs.Remove(selected);
                 RefreshListBox();
             }
         }
@@ -67,14 +67,14 @@ namespace Audiara
             {
                 string selected = GetSelectedFavoriteTitle();
 
-                if (!string.IsNullOrEmpty(selected) && _favoriteSongs.ContainsKey(selected))
+                if (!string.IsNullOrEmpty(selected) && FavoriteSongs.ContainsKey(selected))
                 {
-                    string path = _favoriteSongs[selected];
+                    string path = FavoriteSongs[selected];
 
                     if (!File.Exists(path))
                     {
                         MessageBoxService.ShowError("Music File wasn't found. Removing it.");
-                        _favoriteSongs.Remove(selected);
+                        FavoriteSongs.Remove(selected);
                         RefreshListBox();
                         return;
                     }
