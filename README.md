@@ -1,22 +1,14 @@
 # 🎵 Audiara
 
-Your sleek, modern, and user-friendly **C# WPF Music Player** built for music lovers. An elegant desktop app designed for intuitive playback, playlist management, and more.
-
----
-
-## 🗓️ Project Status
-
-> ✅ **Stable & Ready to Use**
-
-The development phase is now **complete**. Audiara is in a stable state and ready for daily use! Feel free to explore, use, and contribute.
+Your sleek, modern, and user-friendly **C# WPF Music Player** built for music lovers. An elegant desktop app designed for intuitive playback, playlists, and more.
 
 ---
 
 ## 🎤 Features
 
-* 💟 **Favorites**: Mark and manage your favorite tracks
-* 📝 **Playlists**: Create and navigate custom playlists
-* ⏭️ **Next / Previous**: Easily jump between songs
+* 💟 **Favorites**: Manage your favorite tracks
+* 📝 **Playlists**: Add and remove music from playlist
+* ⏭️ **Next / Previous**: Easily jump between songs in playlist
 
 ---
 
@@ -69,7 +61,8 @@ Download the latest `.exe` from the [**Releases Page 🔗**](https://github.com/
 To run the compiled Audiara `.exe` smoothly:
 
 * 📺 **Windows 7 or newer** is required (Windows 10/11 recommended)
-* 🔗 Install the **.NET Desktop Runtime** matching the app's target version (e.g., [.NET 6 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0))
+* 🔗 Install the .NET Desktop Runtime that matches the app's target version (e.g., .NET 6 Runtime).
+If you don't already have it installed, you'll be prompted during launch.
 
 > No extra dependencies or third-party tools needed!
 
