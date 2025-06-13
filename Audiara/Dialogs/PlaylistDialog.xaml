@@ -16,7 +16,7 @@
             </Grid.ColumnDefinitions>
             <ListBox x:Name="SongsPlaylist" BorderThickness="0" Background="#424F64" Foreground="White" HorizontalAlignment="Center" Height="278" Margin="0,1,0,0" VerticalAlignment="Top" Width="600" d:ItemsSource="{d:SampleData ItemCount=1}"/>
         </Grid>
-        <Button Content="Add File" Margin="495,6,2,0" FontSize="24" Click="AddFileButton" Height="47" VerticalAlignment="Top">
+        <Button Content="Add File" Margin="495,6,2,0" FontSize="24" Click="OnAddFileClick" Height="47" VerticalAlignment="Top">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -61,7 +61,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button Content="Play" Margin="4,5,489,0" FontSize="36" Click="PlayPlaylist" Height="47" VerticalAlignment="Top">
+        <Button Content="Play" Margin="4,5,489,0" FontSize="36" Click="OnPlayPlaylistClick" Height="47" VerticalAlignment="Top">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -106,7 +106,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button Content="Add Folder" Margin="116,6,357,0" FontSize="22" Click="AddFolder" Height="47" VerticalAlignment="Top">
+        <Button Content="Add Folder" Margin="116,6,357,0" FontSize="22" Click="OnAddFolderClick" Height="47" VerticalAlignment="Top">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -151,7 +151,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button Content="Clear" Margin="249,6,224,0" FontSize="36" Click="ClearBtn" Height="47" VerticalAlignment="Top">
+        <Button Content="Clear" Margin="249,6,224,0" FontSize="36" Click="OnClearPlaylistClick" Height="47" VerticalAlignment="Top">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" CornerRadius="5">
@@ -196,7 +196,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button Content="Remove" Margin="382,6,113,0" FontSize="24" Click="RemoveBtn" Height="47" VerticalAlignment="Top">
+        <Button Content="Remove" Margin="382,6,113,0" FontSize="24" Click="OnRemoveFileClick" Height="47" VerticalAlignment="Top">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" CornerRadius="5">
