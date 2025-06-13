@@ -61,8 +61,8 @@ Download the latest `.exe` from the [**Releases Page 🔗**](https://github.com/
 To run the compiled Audiara `.exe` smoothly:
 
 * 📺 **Windows 7 or newer** is required (Windows 10/11 recommended)
-* 🔗 Install the .NET Desktop Runtime that matches the app's target version (e.g., .NET 6 Runtime).
-If you don't already have it installed, you'll be prompted during launch.
+* 🔗 Install the **.NET Desktop Runtime** version 8.0: [Download Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+  At launch you will be prompted to install the correct version if it's not already on your system.
 
 > No extra dependencies or third-party tools needed!
 
