@@ -349,6 +349,19 @@ namespace Audiara
         private void PlaybackSlider_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             _isSliderBeingDragged = true;
+            
+            Slider slider = sender as Slider;
+            
+            Point position = e.GetPosition(slider);
+
+            // Calculate percentage of click relative to slider width
+            double percentage = position.X / slider.ActualWidth;
+
+            // Update slider value based on click
+            double newValue = slider.Minimum + (slider.Maximum - slider.Minimum) * percentage;
+            slider.Value = newValue;
+
+            e.Handled = true; // Prevent default dragging behavior
         }
 
         // Seek media when slider drag ends
