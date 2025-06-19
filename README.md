@@ -12,6 +12,20 @@ Your sleek, modern, and user-friendly **C# WPF Music Player** built for music lo
 
 ---
 
+## 🧰 Tech Stack
+
+| Layer                | Technology / Tool                           |
+| -------------------- | ------------------------------------------- |
+| **Language**         | C# (.NET 8)                                 |
+| **UI Framework**     | WPF (Windows Presentation Foundation)       |
+| **Architecture**     | MVVM (Model-View-ViewModel) Pattern         |
+| **Audio Playback**   | System.Windows.Media.MediaPlayer            |                     |
+| **Package Manager**  | NuGet                                       |
+| **Version Control**  | Git, GitHub                                 |
+| **Build System**     | MSBuild, .NET CLI                           |
+
+---
+
 ## 🎨 Screenshots
 
 ### 🎮 UI Preview
